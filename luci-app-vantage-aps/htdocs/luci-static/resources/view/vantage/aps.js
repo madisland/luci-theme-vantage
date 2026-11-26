@@ -38,15 +38,22 @@ function isObject(v) { return v != null && typeof v === 'object' && !Array.isArr
 var cssPromise = null;
 function loadCss() {
 	if (cssPromise) return cssPromise;
-	if (!('adoptedStyleSheets' in document) || typeof CSSStyleSheet !== 'function') return (cssPromise = Promise.resolve());
-	var base = new CSSStyleSheet(), own = new CSSStyleSheet();
-	document.adoptedStyleSheets = document.adoptedStyleSheets.concat([ base, own ]);
+	/* iOS 15.5: no constructable sheets (Safari 16.4 and later only). The theme
+	   prints two empty <style> elements for these, in this order, so the
+	   add-on's rules still follow the base ones; nothing is created here */
+	var adopt = ('adoptedStyleSheets' in document) && typeof CSSStyleSheet === 'function';
+	var base = adopt ? new CSSStyleSheet() : null, own = adopt ? new CSSStyleSheet() : null;
+	if (adopt) document.adoptedStyleSheets = document.adoptedStyleSheets.concat([ base, own ]);
+	var baseEl = adopt ? null : document.getElementById('vt-app-css');
+	var ownEl = adopt ? null : document.getElementById('vt-aps-css');
 	cssPromise = Promise.all([
 		fetch(L.resource('vantage/app.css') + '?v=' + L.env.resource_version).then(function(r) { return r.ok ? r.text() : ''; }).then(function(text) {
-			base.replaceSync(text);
+			if (base) return base.replaceSync(text);
+			if (baseEl && text && !baseEl.firstChild) baseEl.textContent = text;
 		}).catch(function() {}),
 		fetch(L.resource('vantage/aps.css') + '?v=' + L.env.resource_version).then(function(r) { return r.ok ? r.text() : ''; }).then(function(text) {
-			own.replaceSync(text);
+			if (own) return own.replaceSync(text);
+			if (ownEl && text && !ownEl.firstChild) ownEl.textContent = text;
 		}).catch(function() {})
 	]);
 	return cssPromise;

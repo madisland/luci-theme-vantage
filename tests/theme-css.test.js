@@ -109,14 +109,18 @@ test('no scrolling container centres unsafely (its start would be unreachable)',
 });
 
 test('720px: phone rules and desktop rules split without a gap, and the menu script agrees', () => {
+	/* Safari 15 (iOS 15) cannot parse the level 4 range syntax and would
+	   drop the whole block, so the desktop side says min-width. 720px is
+	   the boundary: (max-width: 720px) and (min-width: 720px) leave no
+	   width uncovered (a device exactly 720 CSS px wide gets both, the
+	   later rule winning). */
 	const queries = [ ...themeCss.matchAll(/@media([^{]+)\{/g) ].map(m => m[1].trim());
-	/* (min-width: 721px) and (max-width: 720px) both miss 720.5px */
 	for (const q of queries) {
-		assert.doesNotMatch(q, /min-width:\s*721px/, q);
+		assert.doesNotMatch(q, /\(\s*(width|[0-9.]+px)\s*[<>]/, q + ': level 4 range syntax is Safari 16.4');
 		if (/72[01]px/.test(q))
-			assert.match(q, /\(max-width: 720px\)|\(width > 720px\)|\(720px < width/, q);
+			assert.match(q, /\(max-width: 720px\)|\(min-width: 720px\)/, q);
 	}
-	assert.ok(queries.some(q => /\(width > 720px\)/.test(q)), 'the desktop side uses range syntax');
+	assert.ok(queries.some(q => /\(min-width: 720px\)/.test(q)), 'the desktop side uses min-width');
 	assert.match(menuJs, /this\.mqMobile = window\.matchMedia\('\(max-width: 720px\)'\);/);
 });
 
@@ -286,8 +290,10 @@ test('firewall colours keep 4.5:1 on a hovered row, light and dark (badges, the 
 	assert.match(body((s) => /\[data-tooltip="REJECT"\]/.test(s) && /\[data-tooltip="DROP"\]/.test(s) && !/ACCEPT/.test(s)), /color:\s*var\(--err-text\)/);
 	assert.match(body((s) => /\[data-tooltip="DNAT"\]/.test(s) && !/ACCEPT/.test(s)), /color:\s*var\(--info-text\)/);
 	assert.match(body((s) => /\.td\[data-name="input"\] select:has/.test(s)), /color:\s*var\(--err-text\)/);
-	/* the row hover: --s3 at 55% over the card (--s1), as in the .tr:hover rule */
-	assert.match(themeCss, /:hover > \.td \{ background: color-mix\(in srgb, var\(--s3\) 55%, transparent\); \}/);
+	/* the row hover: --s3 at 55% over the card (--s1), as in the .tr:hover rule.
+	   The rgba() before it is the same colour for a browser without color-mix
+	   (Safari 16.2, iOS 15) and is ignored where color-mix() parses. */
+	assert.match(themeCss, /:hover > \.td \{ background: rgba\(var\(--s3-rgb\), \.55\); background: color-mix\(in srgb, var\(--s3\) 55%, transparent\); \}/);
 	for (const [ scheme, t ] of [ [ 'light', light ], [ 'dark', dark ] ]) {
 		const card = rgba(t, 'var(--s1)');
 		const hover = over(rgba(t, 'var(--s3)').slice(0, 3).concat(0.55), card);
@@ -346,7 +352,7 @@ test('port status: boxes packed, hidden tooltips add no height, port cards may o
 	/* a hidden tooltip parked below its box made the card scroll at 721-1180 px */
 	const parked = themeRules.find((r) => r.sel.includes('.cbi-tooltip-container > .cbi-tooltip'));
 	assert.match(parked.body, /top:\s*0\b/);
-	const mid = themeRules.find((r) => /720px < width <= 1180px/.test(r.media) && r.sel.includes('.cbi-section:has(.ifacebox .cbi-tooltip-container)'));
+	const mid = themeRules.find((r) => /min-width: 720px.*max-width: 1180px/.test(r.media) && r.sel.includes('.cbi-section:has(.ifacebox .cbi-tooltip-container)'));
 	assert.ok(mid && /overflow:\s*visible/.test(mid.body));
 	/* the palette takes Escape from a row menu left open */
 	assert.match(menuJs, /openPalette\(\) \{\s*if \(this\.pal\) return;\s*\/\*[^*]*\*\/\s*this\.closeActMenu\(false\);/);
@@ -419,7 +425,7 @@ test('VM sweep: unzoned grey, short header rows, placeholders, view toggles and 
 	assert.match(bodyOf((s) => s === '.cbi-section > div:not([class]) > em:only-child'), /font-style:\s*normal/);
 	assert.match(bodyOf((s) => s === ':is(.btn, .cbi-button).toggle-lookups'), /background:\s*var\(--s3\)/);
 	assert.match(bodyOf((s) => s === '.cbi-dropdown.btn > ul > li'), /line-height:\s*1\.3/);
-	assert.match(bodyOf((s) => s === '.cbi-value-field > .cbi-checkbox + .cbi-value-description', /width > 720px/), /margin-top:\s*calc\(/);
+	assert.match(bodyOf((s) => s === '.cbi-value-field > .cbi-checkbox + .cbi-value-description', /min-width: 720px/), /margin-top:\s*calc\(/);
 	assert.match(bodyOf((s) => s === '.cbi-value-field > br + .control-group'), /margin-top/);
 });
 

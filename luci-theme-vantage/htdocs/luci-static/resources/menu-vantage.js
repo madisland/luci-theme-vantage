@@ -65,7 +65,7 @@ const MOTION_EVENT = 'vantage:tick';
    key, also what the dashboard reads under another theme) counts until
    the router has one. */
 /* this package's version, as its Makefile has it (tests/version.test.js) */
-const VERSION = '1.2.1';
+const VERSION = '1.3.0';
 /* Check for updates (Appearance): when asked, and never on its own unless
    the daily check below is on, the browser reads the project's 24.10
    package list on GitHub Pages (the same release as 25.12's), without
@@ -453,11 +453,15 @@ function paletteLayout(results) {
 }
 
 /* cells holding only addresses, counters, rates or durations get the mono stack */
-const UNITS = /(?<![A-Za-z])(?:[kKMGTP]?i?B(?:\/s)?|[kMG]?bit\/s|[kMG]?bps|dBm|dB|[kMG]?Hz|ms|us|MCS|NSS|EHT|HE|VHT|HT|pkts?|packets|bytes|min|d|h|m|s)(?![A-Za-z])/g;
+/* iOS 15.5 (Safari 15.5) cannot compile a look-behind in a regex literal: the
+   whole file fails to parse and with it every behaviour below (the rail's
+   list, the search, the appearance dialog). The separator in front of a unit
+   is captured and put back instead. */
+const UNITS = /(^|[^A-Za-z])(?:[kKMGTP]?i?B(?:\/s)?|[kMG]?bit\/s|[kMG]?bps|dBm|dB|[kMG]?Hz|ms|us|MCS|NSS|EHT|HE|VHT|HT|pkts?|packets|bytes|min|d|h|m|s)(?![A-Za-z])/g;
 function technical(text) {
 	const t = text.trim();
 	if (!t || t.length > 120 || !/\d/.test(t)) return false;
-	const rest = t.replace(UNITS, '');
+	const rest = t.replace(UNITS, '$1');
 	return /\d/.test(rest) && /^[\s0-9a-fA-F.:,\/%()+\-x[\]~=]*$/.test(rest);
 }
 

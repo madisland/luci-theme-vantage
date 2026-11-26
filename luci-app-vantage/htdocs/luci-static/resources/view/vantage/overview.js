@@ -122,7 +122,7 @@ var TILE_SLOW_MS = 500;
    answer stands that long after a call that failed */
 var TILE_RETRY_MS = 60 * 1000;
 var STORE_KEY = 'vantage.hist.v1';
-var VERSION = '1.2.1';                /* this package's, as its Makefile has it (tests/version.test.js) */
+var VERSION = '1.3.0';                /* this package's, as its Makefile has it (tests/version.test.js) */
 var SVGNS = 'http://www.w3.org/2000/svg';
 var HOSTAPD_OBJ = /^[A-Za-z0-9_.-]{1,64}$/;
 
@@ -248,7 +248,16 @@ var cssPromise = null;
 function loadCss() {
 	if (cssPromise) return cssPromise;
 	cssPromise = fetch(L.resource('vantage/app.css') + '?v=' + L.env.resource_version).then(function(r) { return r.ok ? r.text() : ''; }).then(function(text) {
-		if (!text || !('adoptedStyleSheets' in document) || typeof CSSStyleSheet !== 'function') return;
+		if (!text) return;
+		/* iOS 15.5: no constructable sheets (Safari 16.4 and later). The theme
+		   prints an empty <style id="vt-app-css"> holding this text instead;
+		   nothing is created here. Without one the view has no sheet at all:
+		   tokens empty, icons painted black */
+		if (!('adoptedStyleSheets' in document) || typeof CSSStyleSheet !== 'function') {
+			var st = document.getElementById('vt-app-css');
+			if (st && !st.firstChild) st.textContent = text;
+			return;
+		}
 		var sheet = new CSSStyleSheet();
 		sheet.replaceSync(text);
 		document.adoptedStyleSheets = document.adoptedStyleSheets.concat([ sheet ]);
@@ -818,7 +827,7 @@ function writeStore(v) {
    dotted numbers, this one and the kept one alike: anything else kept
    counts as nothing kept, and with a VERSION of another form there is
    no line. */
-var NEWS_URL = 'https://github.com/anothaDev/luci-theme-vantage/blob/v1.2.1/CHANGELOG.md';
+var NEWS_URL = 'https://github.com/anothaDev/luci-theme-vantage/blob/v1.3.0/CHANGELOG.md';
 var SEEN_KEY = 'vantage.seen.v1';
 var VERSION_FORM = /^\d{1,4}(\.\d{1,4}){1,3}$/;
 

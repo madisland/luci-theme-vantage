@@ -101,6 +101,11 @@
 <link rel="stylesheet" href="{{ media }}/vantage.css">
 <link rel="stylesheet" href="{{ media }}/icons.css">
 <link rel="icon" href="{{ media }}/logo.svg" type="image/svg+xml">
+{# iOS 15.5 has no constructable sheets: the dashboard (luci-app-vantage)
+   fetches its app.css and puts the text in these, empty until then.
+   Emitted here, not created in script, so no markup is built in JS #}
+<style id="vt-app-css"></style>
+<style id="vt-aps-css"></style>
 <script src="{{ entityencode(dispatcher.build_url('admin/translations', dispatcher.lang), true) }}"></script>
 <script src="{{ resource }}/cbi.js"></script>
 </head>

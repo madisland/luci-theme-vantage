@@ -13,6 +13,27 @@
 :root {
 	color-scheme: light;
 
+	/* the palette as channels, for the rules below that used to say
+	   color-mix(): a browser without it (Safari 16.2, iOS 15) reads these */
+	--bg-rgb: 233, 236, 239;
+	--bg-rail-rgb: 244, 245, 247;
+	--s1-rgb: 248, 249, 250;
+	--s2-rgb: 255, 255, 255;
+	--s3-rgb: 238, 240, 243;
+	--s4-rgb: 225, 228, 232;
+	--line-rgb: 214, 218, 222;
+	--line-2-rgb: 193, 199, 206;
+	--text-rgb: 20, 23, 26;
+	--text-2-rgb: 74, 81, 90;
+	--text-3-rgb: 95, 102, 111;
+	--accent-rgb: 200, 240, 49;
+	--accent-text-rgb: 75, 102, 0;
+	--ok-rgb: 11, 127, 108;
+	--warn-rgb: 154, 91, 0;
+	--err-rgb: 196, 43, 43;
+	--err-ink-rgb: 255, 255, 255;
+	--info-rgb: 28, 100, 196;
+
 	--font: system-ui, -apple-system, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, sans-serif;
 	--mono: ui-monospace, "JetBrains Mono", "SFMono-Regular", "Cascadia Mono", Menlo, Consolas, monospace;
 
@@ -108,6 +129,27 @@
 html[data-darkmode="true"] {
 	color-scheme: dark;
 
+	/* the palette as channels, for the rules below that used to say
+	   color-mix(): a browser without it (Safari 16.2, iOS 15) reads these */
+	--bg-rgb: 13, 14, 16;
+	--bg-rail-rgb: 17, 18, 20;
+	--s1-rgb: 21, 23, 26;
+	--s2-rgb: 27, 29, 33;
+	--s3-rgb: 34, 37, 42;
+	--s4-rgb: 43, 47, 53;
+	--line-rgb: 38, 42, 47;
+	--line-2-rgb: 53, 58, 65;
+	--text-rgb: 232, 234, 237;
+	--text-2-rgb: 169, 175, 183;
+	--text-3-rgb: 138, 144, 153;
+	--accent-rgb: 200, 240, 49;
+	--accent-text-rgb: 200, 240, 49;
+	--ok-rgb: 45, 212, 191;
+	--warn-rgb: 245, 184, 74;
+	--err-rgb: 255, 107, 107;
+	--err-ink-rgb: 26, 5, 5;
+	--info-rgb: 108, 180, 255;
+
 	/* dark: charcoal neutrals, cool grey steps, lime signal */
 	--bg: #0d0e10;
 	--bg-rail: #111214;
@@ -197,7 +239,7 @@ html[data-darkmode="true"] {
 	--v-seg-bg: var(--seg-bg);           /* segmented control: track, selected segment, its ring */
 	--v-seg-on: var(--seg-on);
 	--v-seg-on-ring: var(--seg-on-ring);
-	--v-hover: color-mix(in srgb, var(--s3) 55%, transparent);   /* a hovered row on a card */
+	--v-hover: rgba(var(--s3-rgb), .55);   /* a hovered row on a card */
 	--v-surface-4: var(--s4);            /* a hovered item in a menu (menus are --v-surface-2) */
 	--v-meter: var(--info);              /* memory and storage bars: blue (lime is download) */
 	--v-card-px: var(--card-px);         /* card insides: 20 / 16px, 14px on phones */
@@ -251,7 +293,7 @@ html[data-darkmode="true"] {
 	--v-chart-4: #0f9fb0;
 	--v-chart-5: #8b5cf6;
 	--v-chart-6: #d55181;
-	--v-chart-grid: color-mix(in srgb, var(--text) 8%, transparent);
+	--v-chart-grid: rgba(var(--text-rgb), .08);
 	--v-chart-axis: var(--text-3);
 	--v-chart-fill-opacity: .22;
 }
@@ -267,7 +309,7 @@ html[data-darkmode="true"] {
 	--v-chart-4: #1aa6b8;
 	--v-chart-5: #9a7cf2;
 	--v-chart-6: #d9588c;
-	--v-chart-grid: color-mix(in srgb, var(--text) 7%, transparent);
+	--v-chart-grid: rgba(var(--text-rgb), .07);
 	--v-chart-axis: var(--text-3);
 	--v-chart-fill-opacity: .2;
 }
@@ -285,6 +327,7 @@ html {
 body {
 	margin: 0;
 	min-height: 100vh;
+	min-height: 100dvh;   /* 100vh is taller than the screen while iOS shows its bars */
 	background: var(--bg);
 	color: var(--text);
 	font: 400 var(--fs-base)/1.5 var(--font);
@@ -352,7 +395,7 @@ ul, ol { padding-left: var(--sp-5); }
 
 /* ------------------------------------------------------------- 3. shell */
 
-.vt-shell { position: relative; min-height: 100vh; }
+.vt-shell { position: relative; min-height: 100vh; min-height: 100dvh; }
 
 /* the rail's column, painted for the full document height: the fixed rail
    covers the viewport (and scrolls its own list), this keeps the column
@@ -529,6 +572,7 @@ html[data-rail="pinned"] .vt-frame { margin-left: var(--rail-w-pinned); }
 .vt-frame {
 	margin-left: var(--rail-w);
 	min-height: 100vh;
+	min-height: 100dvh;
 	display: flex; flex-direction: column;
 }
 .vt-anon .vt-frame { margin-left: 0; }
@@ -538,6 +582,7 @@ html[data-rail="pinned"] .vt-frame { margin-left: var(--rail-w-pinned); }
 	display: flex; align-items: center; gap: var(--sp-4);
 	height: var(--top-h);
 	padding: 0 var(--sp-5);
+		background: rgba(var(--bg-rgb), .88);
 	background: color-mix(in srgb, var(--bg) 88%, transparent);
 	backdrop-filter: saturate(1.2) blur(10px);
 	-webkit-backdrop-filter: saturate(1.2) blur(10px);
@@ -573,12 +618,13 @@ a.vt-crumb:hover { color: var(--text); }
 .vt-crumb-switch:hover, .vt-crumb-switch[aria-expanded="true"] { background: var(--s3); }
 .vt-crumb-switch:focus-visible { outline-offset: 0; }
 .vt-crumb-switch[aria-expanded="true"] > svg { transform: rotate(180deg); }
-@media (width > 720px) {
+@media (min-width: 720px) {
 	/* the flyout as a dropdown under the crumb (left: set from the crumb) */
 	.vt-flyout.is-switch {
 		top: calc(var(--top-h) - 4px); bottom: auto; left: var(--x, var(--rail-w));
 		width: auto; min-width: 240px; max-width: 320px;
 		max-height: calc(100vh - var(--top-h) - var(--sp-4));
+		max-height: calc(100dvh - var(--top-h) - var(--sp-4));
 		border: 1px solid var(--line-2); border-radius: var(--r-lg);
 		animation: vt-drop-in .12s ease-out;
 	}
@@ -676,7 +722,8 @@ a.vt-crumb:hover { color: var(--text); }
 }
 /* each label as wide as it is bold, picked: a pick changes no width */
 .vt-appear-opt > span { display: inline-flex; flex-direction: column; align-items: center; }
-.vt-appear-opt > span::after { content: attr(data-text) / ""; height: 0; overflow: hidden; visibility: hidden; font-weight: 600; pointer-events: none; user-select: none; }
+.vt-appear-opt > span::after { content: attr(data-text);   /* the alt text after the slash is Safari 17.4+ */
+  content: attr(data-text) / ""; height: 0; overflow: hidden; visibility: hidden; font-weight: 600; pointer-events: none; user-select: none; }
 .vt-appear-opt:hover { color: var(--text); }
 .vt-appear-opt > input { position: absolute; width: 1px; height: 1px; margin: 0; opacity: 0; pointer-events: none; }
 .vt-appear-opt:has(> input:checked) { background-color: var(--seg-on); color: var(--accent-text); font-weight: 600; box-shadow: var(--seg-on-ring); }
@@ -729,6 +776,7 @@ a.vt-crumb:hover { color: var(--text); }
 #indicators > span[data-indicator="poll-status"][data-style="active"]::after {
 	content: ""; position: absolute; z-index: -1; left: 10px; top: calc(50% - 3.5px);
 	width: 7px; height: 7px; border-radius: 50%;
+		background: rgba(var(--ok-rgb), .5);
 	background: color-mix(in oklab, var(--ok) 50%, transparent);
 	opacity: 0; pointer-events: none;
 	animation: vt-live-soft 5s ease-out infinite;
@@ -737,14 +785,16 @@ a.vt-crumb:hover { color: var(--text); }
 	will-change: transform, opacity;
 }
 html[data-vt-live="err"] #indicators > span[data-indicator="poll-status"][data-style="active"]::after, html[data-vt-alert="warn"] #indicators > span[data-indicator="poll-status"][data-style="active"]::after {
+		background: rgba(var(--warn-rgb), .5);
 	background: color-mix(in oklab, var(--warn) 50%, transparent);
 	animation: vt-live 2s ease-out infinite;
 }
 html[data-vt-alert="err"] #indicators > span[data-indicator="poll-status"][data-style="active"]::after {
+		background: rgba(var(--err-rgb), .5);
 	background: color-mix(in oklab, var(--err) 50%, transparent);
 	animation: vt-live 2s ease-out infinite;
 }
-@media (width > 900px) {
+@media (min-width: 900px) {
 	html[data-vt-live="err"] #indicators > span[data-indicator="poll-status"][data-style="active"]::before, html[data-vt-alert="warn"] #indicators > span[data-indicator="poll-status"][data-style="active"]::before { background: var(--warn); }
 	html[data-vt-alert="err"] #indicators > span[data-indicator="poll-status"][data-style="active"]::before { background: var(--err); }
 }
@@ -758,6 +808,7 @@ html[data-vt-alert="err"] #indicators > span[data-indicator="poll-status"][data-
 /* "Unsaved Changes: N" -> label + prominent count (text node stays for LuCI) */
 #indicators > span[data-indicator][data-count] {
 	font-size: 0; gap: 8px; padding-right: 4px;
+		border-color: rgba(var(--warn-rgb), .55);
 	border-color: color-mix(in srgb, var(--warn) 55%, transparent);
 	background: var(--warn-soft);
 }
@@ -1087,6 +1138,7 @@ legend { font-size: var(--fs-md); font-weight: 600; padding: 0; margin-bottom: v
 	width: fit-content; max-width: 100%;
 	margin: var(--sp-6) 0 0 auto;
 	padding: 6px;
+		background: rgba(var(--s1-rgb), .86);
 	background: color-mix(in srgb, var(--s1) 86%, transparent);
 	backdrop-filter: saturate(1.3) blur(14px);
 	-webkit-backdrop-filter: saturate(1.3) blur(14px);
@@ -1111,7 +1163,7 @@ legend { font-size: var(--fs-md); font-weight: 600; padding: 0; margin-bottom: v
    the 50vh !important above left nothing to transition, so arrow keys never
    reached "Apply unchecked". A length (not none) on the closed list gives
    the open one a change to run */
-.cbi-page-actions .cbi-dropdown > ul:not(.dropdown) { max-height: 100vh; }
+.cbi-page-actions .cbi-dropdown > ul:not(.dropdown) { max-height: 100vh; max-height: 100dvh; }
 
 /* ------------------------------------------------------------ 6. widgets */
 
@@ -1300,10 +1352,10 @@ input[readonly] { cursor: default; }
 input.cbi-checkbox { min-height: 0; }   /* banIP puts the class on the box itself */
 /* its help 8px under the box, as under a field: the box (16px) sits
    centred in a control-high row */
-@media (width > 720px) {
+@media (min-width: 720px) {
 	.cbi-value-field > .cbi-checkbox + .cbi-value-description { margin-top: calc((16px - var(--ctl-h)) / 2 + 8px); }
 }
-@media (pointer: coarse) and (width > 720px) {
+@media (pointer: coarse) and (min-width: 720px) {
 	.cbi-value-field > .cbi-checkbox + .cbi-value-description { margin-top: calc((20px - var(--ctl-h)) / 2 + 8px); }   /* 20px touch box */
 }
 .cbi-checkbox > label:empty { display: none; }
@@ -1506,6 +1558,7 @@ input[type="button"], input[type="reset"], input[type="submit"]) {
 .cbi-dropdown.btn > .more, .cbi-dropdown.cbi-button > .more { display: none !important; }
 .cbi-dropdown.btn > .open, .cbi-dropdown.cbi-button > .open {
 	padding: 0 8px;
+		border-left: 1px solid rgba(var(--text-rgb), .25);
 	border-left: 1px solid color-mix(in srgb, currentColor 25%, transparent);
 	color: inherit;
 }
@@ -1579,7 +1632,7 @@ input[type="button"], input[type="reset"], input[type="submit"]) {
 .cbi-dropdown[open] > ul.dropdown[style*="left:"] {
 	max-height: calc(50vh - var(--ctl-h) - var(--sp-3) - var(--bar-h, 0px) - env(safe-area-inset-bottom, 0px)) !important;
 }
-@media (width > 720px) {
+@media (min-width: 720px) {
 	.cbi-dropdown:not(.btn, .cbi-button)[open] > ul.dropdown[style*="left:"] { left: -1px !important; right: -1px !important; }
 	.cbi-dropdown:is(.btn, .cbi-button)[open] > ul.dropdown[style*="left:"] { left: auto !important; right: -1px !important; }
 }
@@ -1612,6 +1665,7 @@ input[type="button"], input[type="reset"], input[type="submit"]) {
 }
 :is(.btn, .cbi-button, .cbi-dropdown).cbi-button-action.important:hover,
 :is(.btn, .cbi-button, .cbi-dropdown).cbi-button-save.important:hover {
+		background: rgba(var(--accent-rgb), .2);
 	background: color-mix(in srgb, var(--accent) 20%, transparent);
 }
 /* LuCI's emphasis without .important (Bootstrap outlines these, apps mark
@@ -1632,16 +1686,17 @@ input[type="button"], input[type="reset"], input[type="submit"]) {
 	background: var(--accent-soft); border-color: var(--accent-line); color: var(--accent-text); font-weight: 500;
 }
 .cbi-value-field :is(.btn, .cbi-button).cbi-button-apply:hover,
-.td :is(.btn, .cbi-button).cbi-button-apply:hover { background: color-mix(in srgb, var(--accent) 20%, transparent); color: var(--accent-text); }
+.td :is(.btn, .cbi-button).cbi-button-apply:hover { background: rgba(var(--accent-rgb), .2); background: color-mix(in srgb, var(--accent) 20%, transparent); color: var(--accent-text); }
 :is(.btn, .cbi-button).cbi-button-positive:not(.important) { color: var(--ok-text); }
 :is(.btn, .cbi-button, .cbi-dropdown):is(.cbi-button-negative, .cbi-button-remove) {
 	background: transparent;
 	color: var(--err);
+		border-color: rgba(var(--err-rgb), .5);
 	border-color: color-mix(in srgb, var(--err) 40%, var(--line-2));
 }
 :is(.btn, .cbi-button, .cbi-dropdown):is(.cbi-button-negative, .cbi-button-remove):hover { background: var(--err-soft); border-color: var(--err); color: var(--err-text); }
 :is(.btn, .cbi-button, .cbi-dropdown).cbi-button-negative.important { background: var(--err); border-color: var(--err); color: var(--err-ink); }
-:is(.btn, .cbi-button, .cbi-dropdown).cbi-button-negative.important:hover { background: color-mix(in srgb, var(--err) 88%, var(--err-ink)); color: var(--err-ink); }
+:is(.btn, .cbi-button, .cbi-dropdown).cbi-button-negative.important:hover { background: var(--err); background: color-mix(in srgb, var(--err) 88%, var(--err-ink)); color: var(--err-ink); }
 :is(.btn, .cbi-button).cbi-button-reset { background: transparent; color: var(--text-2); }
 :is(.btn, .cbi-button).cbi-button-reset:hover { color: var(--text); }
 
@@ -1722,7 +1777,7 @@ table { border-collapse: separate; border-spacing: 0; width: 100%; }
 	overflow-wrap: break-word;
 }
 .tr:last-child > .td, tbody > tr:last-child > td { border-bottom: 0; }
-.table .tr:not(.table-titles):not(.cbi-section-table-titles):not(.placeholder):hover > .td { background: color-mix(in srgb, var(--s3) 55%, transparent); }
+.table .tr:not(.table-titles):not(.cbi-section-table-titles):not(.placeholder):hover > .td { background: rgba(var(--s3-rgb), .55); background: color-mix(in srgb, var(--s3) 55%, transparent); }
 .th[data-sortable-row] { cursor: pointer; }
 .th[data-sortable-row]:hover { color: var(--text); }
 .th[data-sort-direction="asc"]::after { content: " \2191"; color: var(--accent-text); }
@@ -1795,7 +1850,7 @@ table { border-collapse: separate; border-spacing: 0; width: 100%; }
    shrank to a sliver and hid its value. Give the field a floor: 7em, which a
    wide table (Samba's shares) still nearly fits beside; not on a phone,
    where each row is a card of fixed columns and a floor overflows it. */
-@media (width > 720px) {
+@media (min-width: 720px) {
 	.td.cbi-value-field input[type="text"], .td.cbi-value-field input:not([type]) { min-width: 7em; }
 }
 
@@ -1854,7 +1909,7 @@ table { border-collapse: separate; border-spacing: 0; width: 100%; }
 .drag-handle { cursor: grab; color: var(--text-3); padding: 0 6px; font-family: var(--mono); }
 .drag-over-above > .td, .drag-over-above > td { box-shadow: inset 0 2px 0 var(--accent-text); }
 .drag-over-below > .td, .drag-over-below > td { box-shadow: inset 0 -2px 0 var(--accent-text); }
-.cbi-rowstyle-2 > .td { background: color-mix(in srgb, var(--s2) 50%, transparent); }
+.cbi-rowstyle-2 > .td { background: rgba(var(--s2-rgb), .5); background: color-mix(in srgb, var(--s2) 50%, transparent); }
 
 .col-1 { width: 8.33%; } .col-2 { width: 16.66%; } .col-3 { width: 25%; } .col-4 { width: 33.33%; }
 .col-5 { width: 41.66%; } .col-6 { width: 50%; } .col-7 { width: 58.33%; } .col-8 { width: 66.66%; }
@@ -1981,7 +2036,9 @@ div.right > .btn, div.right > .cbi-button, div.right > button { margin-left: 0; 
 :is(.ifacebox-body, .ifacebadge) > span:has(> .nowrap) > :not(.nowrap) { font-size: var(--fs-sm); line-height: 1.55; }
 :is(.ifacebox-body, .ifacebadge) > span:has(> .nowrap) > .nowrap {
 	grid-column: 1 / -1;
-	display: grid; grid-template-columns: subgrid;
+	display: grid;
+	grid-template-columns: max-content minmax(0, 1fr);   /* no subgrid (Safari 16): the parent's two columns */
+	grid-template-columns: subgrid;
 	align-items: baseline;
 	min-width: 0;
 	margin-block: 1.5px;
@@ -2166,7 +2223,7 @@ div:has(> .ifacebox > .ifacebox-head.cbi-tooltip-container) > .ifacebox { width:
 .zonebadge:is([style*="--zone-color-rgb: 238, 238, 238"], [style*="--zone-color-rgb:238, 238, 238"], [style*="--zone-color-rgb:238,238,238"]) { box-shadow: inset 3px 0 0 var(--text-3); }
 .ifacebox-head:is([style*="--zone-color-rgb: 238, 238, 238"], [style*="--zone-color-rgb:238, 238, 238"], [style*="--zone-color-rgb:238,238,238"]) { box-shadow: inset 0 3px 0 var(--text-3); }
 /* muted, but on the zone tint: --text-3 fell to 3.1:1 there in dark mode */
-.zonebadge > em { font-style: normal; color: color-mix(in srgb, var(--text) 78%, transparent); }
+.zonebadge > em { font-style: normal; color: rgba(var(--text-rgb), .78); color: color-mix(in srgb, var(--text) 78%, transparent); }
 .zonebadge .ifacebadge { padding: 0 4px; border: 0; background: transparent; }
 .zone-forwards { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
 .zone-forwards > span { color: var(--text-3); }
@@ -2190,10 +2247,10 @@ div:has(> .ifacebox > .ifacebox-head.cbi-tooltip-container) > .ifacebox { width:
 .alert-message h4 { margin: 0 0 var(--sp-1); font-size: var(--fs-md); }
 .alert-message p:last-child, .alert-message ul:last-child { margin-bottom: 0; }
 .alert-message pre { margin-top: var(--sp-2); }
-.alert-message.info, .alert-message.notice { border-left-color: var(--info); background: color-mix(in srgb, var(--info-soft) 60%, var(--s1)); }
-.alert-message.success { border-left-color: var(--ok); background: color-mix(in srgb, var(--ok-soft) 60%, var(--s1)); }
-.alert-message.warning { border-left-color: var(--warn); background: color-mix(in srgb, var(--warn-soft) 70%, var(--s1)); }
-.alert-message.error, .alert-message.danger { border-left-color: var(--err); background: color-mix(in srgb, var(--err-soft) 70%, var(--s1)); }
+.alert-message.info, .alert-message.notice { border-left-color: var(--info); background: var(--info-soft); background: color-mix(in srgb, var(--info-soft) 60%, var(--s1)); }
+.alert-message.success { border-left-color: var(--ok); background: var(--ok-soft); background: color-mix(in srgb, var(--ok-soft) 60%, var(--s1)); }
+.alert-message.warning { border-left-color: var(--warn); background: var(--warn-soft); background: color-mix(in srgb, var(--warn-soft) 70%, var(--s1)); }
+.alert-message.error, .alert-message.danger { border-left-color: var(--err); background: var(--err-soft); background: color-mix(in srgb, var(--err-soft) 70%, var(--s1)); }
 
 /* spinners */
 .spinning { position: relative; }
@@ -2210,7 +2267,7 @@ div:has(> .ifacebox > .ifacebox-head.cbi-tooltip-container) > .ifacebox { width:
 }
 #view > .spinning::before, .vt-main > .spinning::before { width: 20px; height: 20px; margin: 0; }
 .btn.spinning, .cbi-button.spinning { pointer-events: none; opacity: .85; }
-.btn.spinning::before, .cbi-button.spinning::before { margin-right: 2px; border-color: color-mix(in srgb, currentColor 25%, transparent); border-top-color: currentColor; }
+.btn.spinning::before, .cbi-button.spinning::before { margin-right: 2px; border-color: rgba(var(--text-rgb), .25); border-color: color-mix(in srgb, currentColor 25%, transparent); border-top-color: currentColor; }
 .cbi-dropdown.spinning > .open { visibility: hidden; }
 @keyframes vt-spin { to { transform: rotate(360deg); } }
 
@@ -2672,7 +2729,7 @@ body[data-page^="admin-status-channel_analysis"] #view [data-tab-title]:not([dat
 }
 html[data-darkmode="true"] .vt-login-page {
 	background:
-		radial-gradient(900px 520px at 50% 0%, color-mix(in srgb, var(--accent) 6%, transparent), transparent 60%),
+		radial-gradient(900px 520px at 50% 0%, rgba(var(--accent-rgb), .06), transparent 60%),
 		linear-gradient(rgba(255, 255, 255, .025) 1px, transparent 1px) 0 0 / 32px 32px,
 		linear-gradient(90deg, rgba(255, 255, 255, .025) 1px, transparent 1px) 0 0 / 32px 32px,
 		var(--bg);
@@ -2699,6 +2756,7 @@ html:not([data-darkmode="true"]) .vt-login-page {
 .vt-login-error, .vt-login-info {
 	margin: 0 0 var(--sp-4);
 	padding: var(--sp-2) var(--sp-3);
+		border: 1px solid rgba(var(--err-rgb), .45);
 	border: 1px solid color-mix(in srgb, var(--err) 45%, transparent);
 	border-left: 3px solid var(--err);
 	background: var(--err-soft);
@@ -2706,6 +2764,7 @@ html:not([data-darkmode="true"]) .vt-login-page {
 	font-size: var(--fs-sm);
 }
 .vt-login-info {
+		border-color: rgba(var(--info-rgb), .45);
 	border-color: color-mix(in srgb, var(--info) 45%, transparent);
 	border-left-color: var(--info);
 	background: var(--info-soft);
@@ -2851,8 +2910,8 @@ body[data-page="admin-statistics-graphs"] p.controls > .nowrap > .cbi-button { m
 .v-seg-used { background: var(--v-meter); }
 .v-seg-cache {
 	background: repeating-linear-gradient(-45deg,
-		color-mix(in srgb, var(--v-meter) 55%, transparent) 0 3px,
-		color-mix(in srgb, var(--v-meter) 25%, transparent) 3px 6px);
+		rgba(var(--info-rgb), .55) 0 3px,
+		rgba(var(--info-rgb), .25) 3px 6px);
 }
 .v-seg.is-warn { background: var(--warn); }
 .v-seg.is-crit { background: var(--err); }
@@ -2863,7 +2922,9 @@ body[data-page="admin-statistics-graphs"] p.controls > .nowrap > .cbi-button { m
 .v-key { width: 10px; height: 10px; border-radius: var(--r-xs); flex: none; }
 .v-key.v-seg-free { background: var(--s3); box-shadow: inset 0 0 0 1px var(--line-2); }
 .v-meter-rows { display: grid; grid-template-columns: minmax(120px, max-content) minmax(0, 1fr) max-content; gap: 14px 20px; padding: 4px 0 6px; }
-.v-meter-row { display: grid; grid-column: 1 / -1; grid-template-columns: subgrid; grid-template-areas: "label bar val"; align-items: center; }
+.v-meter-row { display: grid; grid-column: 1 / -1;
+	grid-template-columns: minmax(120px, max-content) minmax(0, 1fr) max-content;   /* no subgrid (Safari 16) */
+	grid-template-columns: subgrid; grid-template-areas: "label bar val"; align-items: center; }
 .v-meter-row > .v-meter-label { grid-area: label; color: var(--text-2); overflow-wrap: anywhere; }
 .v-meter-row > .v-meter-label small { display: block; color: var(--text-3); font: var(--fs-micro) var(--mono); }
 .v-meter-row > .v-meter-bar { grid-area: bar; }
@@ -2871,7 +2932,7 @@ body[data-page="admin-statistics-graphs"] p.controls > .nowrap > .cbi-button { m
 .v-meter-row > .v-meter-val b { color: var(--text); font-weight: 600; }
 
 /* Share the widest table's intrinsic width with its headings and dividers. */
-@media (width > 720px) {
+@media (min-width: 720px) {
 	.cbi-tblsection { display: grid; grid-template-columns: minmax(min-content, 1fr); }
 	.cbi-section.cbi-tblsection > .table { width: auto !important; }
 	.cbi-section:has(.cbi-tblsection) > .cbi-section-node { display: table; width: 100%; }
@@ -2901,7 +2962,7 @@ body[data-page="admin-statistics-graphs"] p.controls > .nowrap > .cbi-button { m
 /* Interfaces: an open device tooltip in the last row reaches below the
    table card; the card's scroller would clip it */
 :is(.cbi-section, .cbi-tblsection):has(.ifacebox .cbi-tooltip-container:is(:hover, :focus-within)) { overflow: visible; }
-@media (720px < width <= 1180px) {
+@media (min-width: 720px) and (max-width: 1180px) {
 	.cbi-section { overflow-x: auto; }
 	.cbi-section:has(.cbi-dropdown[open]) { overflow: visible; }
 	/* Port status: boxes wrap, and their tooltips must get out */
@@ -2974,7 +3035,7 @@ html[data-darkmode="true"] :is(#ban-status, #ban-report) { --ban-ok: #63c79b; --
 .zonebadge[style*="background-color:#"] {
 	padding-left: 10px;
 	border-color: var(--line-2) !important; color: var(--text) !important;
-	background-image: linear-gradient(to right, transparent 3px, color-mix(in srgb, var(--s2) calc(100% - var(--zone-mix) * 100%), transparent) 3px);
+	background-image: linear-gradient(to right, transparent 3px, rgba(var(--s2-rgb), .78) 3px);
 }
 .zone-forwards :is(.zone-src, .zone-dest) { display: inline-flex; flex-wrap: wrap; gap: 6px; }
 .zonebadge.zonebadge-empty { background: transparent !important; border-style: dashed; color: var(--text-2) !important; box-shadow: none; }
@@ -3285,8 +3346,8 @@ html[data-darkmode="true"] :is(#ban-status, #ban-report) { --ban-ok: #63c79b; --
 	overflow-wrap: anywhere;
 }
 .table:has(.cbi-section-table-titles.named[data-title]) .cbi-section-table-row[data-title]:last-child::before { border-bottom: 0; }
-.table:has(.cbi-section-table-titles.named[data-title]) .cbi-section-table-row[data-title]:hover::before { background: color-mix(in srgb, var(--s3) 55%, transparent); }
-@media (width > 720px) {
+.table:has(.cbi-section-table-titles.named[data-title]) .cbi-section-table-row[data-title]:hover::before { background: rgba(var(--s3-rgb), .55); background: color-mix(in srgb, var(--s3) 55%, transparent); }
+@media (min-width: 720px) {
 	.table:has(.cbi-section-table-titles.named[data-title]) .tr:not(.placeholder) > :is(.th, .td):first-child { padding-left: 12px; }   /* the name leads */
 }
 [id^="cbi-firewall-"] .table:has(.cbi-section-table-titles.named[data-title]) .cbi-section-table-row[data-title]:has(input[data-widget-id$=".enabled"]:not(:checked))::before { color: var(--text-3); }
@@ -3351,7 +3412,9 @@ body[data-page="admin-system-filemanager"] .sort-button { border-color: var(--li
 		width: auto; height: calc(var(--bar-h) + env(safe-area-inset-bottom));
 		padding-bottom: env(safe-area-inset-bottom);
 		flex-direction: row;
+		padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right);
 		border-right: 0; border-top: 1px solid var(--line);
+				background: rgba(var(--bg-rail-rgb), .94);
 		background: color-mix(in srgb, var(--bg-rail) 94%, transparent);
 		backdrop-filter: blur(12px);
 		-webkit-backdrop-filter: blur(12px);
@@ -3393,6 +3456,7 @@ body[data-page="admin-system-filemanager"] .sort-button { border-color: var(--li
 		bottom: calc(var(--bar-h) + env(safe-area-inset-bottom));
 		width: auto;
 		max-height: 70vh;
+		max-height: 70dvh;
 		border-right: 0; border-top: 1px solid var(--line-2);
 		border-radius: var(--r-lg) var(--r-lg) 0 0;
 		animation: vt-sheet-in .18s ease-out;
@@ -3406,7 +3470,11 @@ body[data-page="admin-system-filemanager"] .sort-button { border-color: var(--li
 	.vt-fly-sub a { padding: 8px 12px; font-size: var(--fs-base); }
 	@keyframes vt-sheet-in { from { transform: translateY(16px); opacity: 0; } to { transform: none; opacity: 1; } }
 
-	.vt-topbar { gap: var(--sp-2); padding: 0 var(--sp-3) 0 var(--sp-4); }
+	.vt-topbar {
+		gap: var(--sp-2);
+		/* viewport-fit=cover: the notch sits in the page, so the insets pad the bar */
+		padding: 0 calc(var(--sp-3) + env(safe-area-inset-right)) 0 calc(var(--sp-4) + env(safe-area-inset-left));
+	}
 	.vt-crumbs > :not(:last-child) { display: none; }
 	.vt-crumbs .vt-crumb-current { font-size: var(--fs-md); }
 	.vt-top-actions { gap: 2px; }
@@ -3414,7 +3482,7 @@ body[data-page="admin-system-filemanager"] .sort-button { border-color: var(--li
 	.vt-tabs { padding: var(--sp-4) var(--sp-4) 0; }
 	.vt-tabs:not([hidden]) + .vt-main { padding-top: var(--sp-4); }
 
-	.vt-main { padding: var(--sp-4); }
+	.vt-main { padding: var(--sp-4) calc(var(--sp-4) + env(safe-area-inset-right)) var(--sp-4) calc(var(--sp-4) + env(safe-area-inset-left)); }
 	.vt-foot { padding-bottom: var(--sp-4); }
 	:root { --card-px: 14px; --card-py: 14px; }
 	.cbi-map > h2, .vt-main > h2, #view > h2, #view > div > h2:first-child { font-size: var(--fs-xl); }
@@ -3573,7 +3641,7 @@ body[data-page="admin-system-filemanager"] .sort-button { border-color: var(--li
 		margin: var(--sp-4) calc(-1 * var(--sp-4)) calc(-1 * var(--sp-4)); padding: var(--sp-3) var(--sp-4);
 	}
 	.vt-pal-overlay { padding: var(--sp-3); align-items: flex-start; }
-	.vt-pal { max-height: 80vh; }
+	.vt-pal { max-height: 80vh; max-height: 80dvh; }
 	.vt-pal-foot > span:not(.vt-pal-count) { display: none; }
 	/* a client, radio or network from the dashboard: its second text
 	   (address, network, access point) under its name, whole */

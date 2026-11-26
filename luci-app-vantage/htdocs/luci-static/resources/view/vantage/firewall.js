@@ -32,7 +32,16 @@ var cssPromise = null;
 function loadCss() {
 	if (cssPromise) return cssPromise;
 	cssPromise = fetch(L.resource('vantage/app.css') + '?v=' + L.env.resource_version).then(function(r) { return r.ok ? r.text() : ''; }).then(function(text) {
-		if (!text || !('adoptedStyleSheets' in document) || typeof CSSStyleSheet !== 'function') return;
+		if (!text) return;
+		/* iOS 15.5: no constructable sheets (Safari 16.4 and later). The theme
+		   prints an empty <style id="vt-app-css"> holding this text instead;
+		   nothing is created here. Without one the view has no sheet at all:
+		   tokens empty, icons painted black */
+		if (!('adoptedStyleSheets' in document) || typeof CSSStyleSheet !== 'function') {
+			var st = document.getElementById('vt-app-css');
+			if (st && !st.firstChild) st.textContent = text;
+			return;
+		}
 		var sheet = new CSSStyleSheet();
 		sheet.replaceSync(text);
 		document.adoptedStyleSheets = document.adoptedStyleSheets.concat([ sheet ]);

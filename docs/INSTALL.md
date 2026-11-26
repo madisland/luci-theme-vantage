@@ -175,7 +175,7 @@ about 900 KB once installed (less on a compressed overlay).
 
 The theme and dashboard use current CSS (`:has()`, `color-mix()`, container
 queries, subgrid). Any evergreen browser from 2023 or later works: Chrome
-or Edge 117+, Firefox 121+, Safari 16.2+ (these minimum versions come from
+or Edge 117+, Firefox 121+, Safari 15.5+ (16.2+ recommended) (these minimum versions come from
 the features the CSS uses; older browsers are not tested). No external
 fonts, scripts or CDNs are loaded, so the UI works without internet access.
 

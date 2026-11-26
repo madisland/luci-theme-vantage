@@ -73,7 +73,7 @@ test('found on a real router: links to absent pages, a wrapping handle bar, clip
 	}
 	for (const r of rules.filter((x) => /container:/.test(x.body) && /\.vt-(hero|sys|clients|cell)$/.test(x.sel)))
 		assert.match(r.body, /\bvtcell\b/, r.sel);
-	assert.match(css, /@container vtcell \(max-width: 340px\) \{ \.vt-app \.vt-ov-lr \{ display: none; \} \}/);
+	assert.match(css, /@media \(max-width: 372px\) \{ \.vt-app \.vt-ov-lr \{ display: none; \} \}/);
 	/* text-only node sub-lines are blocks, so their ellipsis shows */
 	assert.ok(rules.some((r) => r.sel === '.vt-app .vt-node-sub:not(:has(> *))' && /display:\s*block/.test(r.body)));
 });
@@ -89,7 +89,7 @@ test('other lines to the internet (#88): the main row as with one line, the othe
 	assert.match(rule('.vt-app .vt-node-kicker-tag').body, /flex-wrap:\s*wrap/);
 	assert.match(rule('.vt-app .vt-node-name').body, /text-overflow:\s*ellipsis/);
 	/* the phone layout puts every part back in the one column */
-	const phone = /@container vthero \(max-width: 700px\) \{([\s\S]*?)\n\}/.exec(css)[1];
+	const phone = /@media \(max-width: 732px\) \{([\s\S]*?)\n\}/.exec(css)[1];
 	assert.match(phone, /\.vt-path-lines \{ grid-template-rows: none; \}/);
 	assert.match(phone, /\.vt-path-lines > \.vt-node-gw, [^{]*\.vt-path-lines > \.vt-branches, \.vt-app \.vt-lines \{ grid-area: auto; \}/);
 	/* "default route" keeps its case in the upper-case kicker */
@@ -111,7 +111,7 @@ test('network path: the radio column is 172px, wider when a radio\'s text needs 
 	assert.match(sup[1], /\.vt-app \.vt-branches \{[^}]*grid-template-columns: minmax\(172px, max-content\) minmax\(0, 1fr\)/);
 	assert.match(sup[1], /\.vt-app \.vt-branch \{ grid-template-columns: subgrid; \}/);
 	assert.match(sup[1], /\.vt-app \.vt-branch > \.vt-node:first-child:not\(\.vt-node-net\) \{ max-width: 240px; \}/, 'up to 240px');
-	const mid = /@container vthero \(max-width: 1020px\)\s*\{([\s\S]*?)\n\}/.exec(css);
+	const mid = /@media \(max-width: 1052px\)\s*\{([\s\S]*?)\n\}/.exec(css);
 	assert.ok(mid.index > sup.index, 'medium widths come after and win');
 	assert.match(mid[1], /\.vt-app \.vt-branches \{ display: flex; \}/, 'medium widths keep the stacked branches');
 });
@@ -142,7 +142,7 @@ test('paired access points: their rows, branches and wider nodes only under .vt-
 	assert.deepEqual(bare.map(r => r.body.trim()), [ 'max-width: 260px;', 'max-width: none; align-self: stretch;' ]);
 	assert.ok(!rules.some(r => /340px/.test(r.body) && !/\.vt-path-mesh/.test(r.sel)), 'no 340px node outside');
 	/* a narrow node (a phone): the address column goes, the name keeps its room */
-	assert.match(css, /@container vtleaf \(max-width: 27em\)\s*\{[^@}]*\}\s*\.vt-app \.vt-path-mesh \.vt-leaf-ip \{ display: none; \}/);
+	assert.match(css, /@media \(max-width: 464px\)\s*\{[^@}]*\}\s*\.vt-app \.vt-path-mesh \.vt-leaf-ip \{ display: none; \}/);
 });
 
 test('a provider tile: a note without a break wraps, and nothing of its body reaches past the tile sideways', () => {

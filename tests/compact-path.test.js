@@ -366,14 +366,14 @@ test('compact path: its styles apply under .vt-path-compact only; a narrower tre
 	for (const r of mine) for (const s of r.sel.split(',')) assert.match(s, /\.vt-path\.vt-path-compact\b/, s);
 	const block = (at) => { const i = css.indexOf(at); assert.ok(i >= 0, at); return css.slice(i, css.indexOf('\n}', i)); };
 	/* below the wide layout the tree has the tile's width but 34 px: under 500 px of it the rate up goes, under 400 px the short form */
-	assert.match(block('@container vthero (max-width: 533px)'), /\.vt-cl-up \{ display: none; \}/);
-	const narrow = block('@container vthero (max-width: 433px)');
+	assert.match(block('@media (max-width: 565px)'), /\.vt-cl-up \{ display: none; \}/);
+	const narrow = block('@media (max-width: 465px)');
 	assert.match(narrow, /\.vt-cl-long \{ display: none; \}/);
 	assert.match(narrow, /\.vt-cl-short \{ display: inline; \}/);
 	/* and the names more room: set in 26 px, not 34 */
 	assert.match(narrow, /\.vt-branches \{ --vt-nest: 26px; \}/);
 	assert.match(narrow, /\.vt-branch-ssids \{ padding-left: 26px; \}/);
-	assert.match(block('@container vthero (max-width: 1020px) {\n\t.vt-app .vt-path.vt-path-compact {'), /grid-template-columns: minmax\(0, 1fr\)/);
+	assert.match(block('@media (max-width: 1052px) {\n\t.vt-app .vt-path.vt-path-compact {'), /grid-template-columns: minmax\(0, 1fr\)/);
 	/* the wide layout: the tree has the room access points' branches have */
 	assert.match(block('@container vthero (min-width: 1021px) {\n\t.vt-app .vt-path.vt-path-compact {'), /grid-template-columns: minmax\(150px, \.7fr\) minmax\(90px, \.4fr\) minmax\(184px, \.85fr\) minmax\(0, 3\.4fr\)/);
 	/* as wide as its longest name needs (a name 36em at most), no fixed cap; a line without a count lends its name that cell */

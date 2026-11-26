@@ -15,6 +15,49 @@
 /* ------------------------------------------------------------ 1. tokens */
 
 .vt-app {
+
+	/* legacy browsers (iOS 15.5): channel variables for the tints
+	   below, so rgba(var(--x-rgb), a) follows the theme's light and dark
+	   palettes the way color-mix() does */
+	--vt-surface-rgb: var(--s1-rgb, 255, 255, 255);
+	--vt-surface-2-rgb: var(--s2-rgb, 255, 255, 255);
+	--vt-surface-3-rgb: var(--s3-rgb, 236, 238, 241);
+	--vt-line-rgb: var(--line-rgb, 226, 229, 233);
+	--vt-line-2-rgb: var(--line-2-rgb, 203, 208, 214);
+	--vt-text-rgb: var(--text-rgb, 21, 24, 28);
+	--vt-text-2-rgb: var(--text-2-rgb, 75, 82, 91);
+	--vt-text-3-rgb: var(--text-3-rgb, 95, 102, 111);
+	--vt-accent-rgb: var(--accent-rgb, 53, 99, 233);
+	--vt-ok-rgb: var(--ok-rgb, 12, 127, 99);
+	--vt-warn-rgb: var(--warn-rgb, 154, 91, 0);
+	--vt-err-rgb: var(--err-rgb, 196, 43, 43);
+	--vt-info-rgb: var(--info-rgb, 31, 99, 198);
+	--vt-accent-line-rgb: var(--accent-rgb, 53, 99, 233);
+	--vt-accent-line-40: rgba(var(--vt-accent-line-rgb), .4);
+	--vt-accent-line-60: rgba(var(--vt-accent-line-rgb), .6);
+	--vt-accent-text-rgb: var(--accent-text-rgb, var(--accent-rgb, 53, 99, 233));
+	--vt-chart-axis-rgb: var(--text-3-rgb, 95, 102, 111);
+	--vt-chart-1-rgb: 111, 156, 0;
+	--vt-chart-2-rgb: 42, 120, 214;
+	--vt-chart-3-rgb: 224, 99, 47;
+	--vt-chart-4-rgb: 15, 159, 176;
+	--vt-chart-5-rgb: 139, 92, 246;
+	--vt-chart-6-rgb: 213, 81, 129;
+	--vt-ok-text-rgb: var(--ok-rgb, 12, 127, 99);
+	--vt-warn-text-rgb: var(--warn-rgb, 154, 91, 0);
+	--vt-err-text-rgb: var(--err-rgb, 196, 43, 43);
+	--vt-info-text-rgb: var(--info-rgb, 31, 99, 198);
+	--vt-sc-rgb: var(--vt-chart-1-rgb); --vt-sc-rgb-rgb: var(--vt-chart-1-rgb-rgb);
+	--vt-bc-rgb: var(--vt-chart-1-rgb); --vt-bc-rgb-rgb: var(--vt-chart-1-rgb-rgb);
+	--vt-oc-rgb: var(--vt-ok-rgb);
+	--vt-beat-c-rgb: var(--vt-ok-rgb); --vt-oc-rgb-rgb: var(--vt-ok-rgb-rgb);
+	--vt-cc-rgb: var(--vt-warn-rgb); --vt-cc-rgb-rgb: var(--vt-warn-rgb-rgb);
+	--vt-xc-rgb: var(--vt-ok-rgb); --vt-xc-rgb-rgb: var(--vt-ok-rgb-rgb);
+	--vt-xt-rgb: var(--vt-ok-text-rgb); --vt-xt-rgb-rgb: var(--vt-ok-text-rgb-rgb);
+	--vt-meter-rgb: var(--vt-chart-1-rgb); --vt-meter-rgb-rgb: var(--vt-chart-1-rgb-rgb);
+	--vt-tunnel-rgb: var(--vt-chart-5-rgb); --vt-tunnel-rgb-rgb: var(--vt-chart-5-rgb-rgb);
+	--vt-dir-dn-rgb: var(--vt-chart-1-rgb); --vt-dir-dn-rgb-rgb: var(--vt-chart-1-rgb-rgb);
+	--vt-dir-up-rgb: var(--vt-chart-5-rgb); --vt-dir-up-rgb-rgb: var(--vt-chart-5-rgb-rgb);
 	--vt-surface: var(--v-surface, #ffffff);
 	--vt-surface-2: var(--v-surface-2, #f6f7f9);
 	--vt-surface-3: var(--v-surface-3, #eceef1);
@@ -104,17 +147,17 @@
 	--vt-chart-axis: var(--v-chart-axis, var(--vt-text-3));
 	--vt-fill-op: var(--v-chart-fill-opacity, .22);
 	/* bands: identity colours, the same everywhere (badges, tiles, charts) */
-	--vt-b2: var(--vt-chart-2);
-	--vt-b5: var(--vt-chart-3);
-	--vt-b6: var(--vt-chart-4);
-	--vt-b60: var(--vt-text-2);
+	--vt-b2: var(--vt-chart-2); --vt-b2-rgb: var(--vt-chart-2-rgb);
+	--vt-b5: var(--vt-chart-3); --vt-b5-rgb: var(--vt-chart-3-rgb);
+	--vt-b6: var(--vt-chart-4); --vt-b6-rgb: var(--vt-chart-4-rgb);
+	--vt-b60: var(--vt-text-2); --vt-b60-rgb: var(--vt-text-2-rgb);
 	--vt-band-ink: 60%;   /* band colour in a chip's text: 4.5:1 on light surfaces */
-	--vt-series-up: var(--vt-chart-1);
-	--vt-tunnel: var(--vt-chart-4);  /* a VPN's pipe on the line: apart from the accent, which the packets in it keep */
+	--vt-series-up: var(--vt-chart-1); --vt-series-up-rgb: var(--vt-chart-1-rgb);
+	--vt-tunnel: var(--vt-chart-4); --vt-tunnel-rgb: var(--vt-chart-4-rgb);  /* a VPN's pipe on the line: apart from the accent, which the packets in it keep */
 	/* throughput directions: download keeps the uplink colour, upload
 	   takes one that no band uses */
-	--vt-dir-dn: var(--vt-chart-1);
-	--vt-dir-up: var(--vt-chart-5);
+	--vt-dir-dn: var(--vt-chart-1); --vt-dir-dn-rgb: var(--vt-chart-1-rgb);
+	--vt-dir-up: var(--vt-chart-5); --vt-dir-up-rgb: var(--vt-chart-5-rgb);
 	/* meters (memory, storage, shares): blue, as the theme's */
 	--vt-meter: var(--v-meter, var(--vt-info));
 	--vt-av-l: 92%;
@@ -280,13 +323,13 @@ html[data-darkmode="true"] .vt-app {
 	border-radius: 4px; font-size: var(--vt-fs-micro); font-weight: var(--vt-fw-bold); letter-spacing: .01em; white-space: nowrap;
 	/* "2.4 GHz" keeps its case inside an upper-case label (the path's kickers) */
 	text-transform: none;
-	--vt-bc: var(--vt-b60);
-	background: color-mix(in oklab, var(--vt-bc) 14%, transparent);
-	color: color-mix(in oklab, var(--vt-bc) var(--vt-band-ink), var(--vt-text));
+	--vt-bc: var(--vt-b60); --vt-bc-rgb: var(--vt-b60-rgb);
+	background: rgba(var(--vt-bc-rgb), .14);
+	color: var(--vt-bc);
 }
-.vt-app .vt-band-2g { --vt-bc: var(--vt-b2); }
-.vt-app .vt-band-5g { --vt-bc: var(--vt-b5); }
-.vt-app .vt-band-6g { --vt-bc: var(--vt-b6); }
+.vt-app .vt-band-2g { --vt-bc: var(--vt-b2); --vt-bc-rgb: var(--vt-b2-rgb); }
+.vt-app .vt-band-5g { --vt-bc: var(--vt-b5); --vt-bc-rgb: var(--vt-b5-rgb); }
+.vt-app .vt-band-6g { --vt-bc: var(--vt-b6); --vt-bc-rgb: var(--vt-b6-rgb); }
 
 .vt-app .vt-gen { font-size: var(--vt-fs-micro); color: var(--vt-text-3); white-space: nowrap; }
 
@@ -319,11 +362,11 @@ html[data-darkmode="true"] .vt-app {
 
 /* compact charts (sparklines): line over a fading area, faint top grid
    and baseline, a marker on the newest value, the axis maximum top-right */
-.vt-app .vt-sk { position: relative; --vt-sc: var(--vt-chart-1); }
+.vt-app .vt-sk { position: relative; --vt-sc: var(--vt-chart-1); --vt-sc-rgb: var(--vt-chart-1-rgb); }
 .vt-app .vt-spark { display: block; width: 100%; height: 34px; overflow: visible; }
 .vt-app .vt-sk-empty .vt-spark { opacity: .6; }
 .vt-app .vt-spark-grid { fill: none; stroke: var(--vt-chart-grid); stroke-width: 1; stroke-dasharray: 2 3; vector-effect: non-scaling-stroke; }
-.vt-app .vt-spark-base { fill: none; stroke: color-mix(in oklab, var(--vt-chart-axis) 35%, transparent); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.vt-app .vt-spark-base { fill: none; stroke: rgba(var(--vt-chart-axis-rgb), .35); stroke-width: 1; vector-effect: non-scaling-stroke; }
 .vt-app .vt-spark-line { fill: none; stroke: var(--vt-sc); stroke-width: 1.5; vector-effect: non-scaling-stroke; stroke-linejoin: round; stroke-linecap: round; }
 .vt-app .vt-spark-area { stroke: none; }
 .vt-app .vt-fade-top { stop-color: var(--vt-sc); stop-opacity: var(--vt-fill-op); }
@@ -343,12 +386,12 @@ html[data-darkmode="true"] .vt-app {
 	font-size: var(--vt-fs-micro); line-height: 1; color: var(--vt-warn); white-space: nowrap; pointer-events: none;
 }
 .vt-app .vt-sk-note { position: absolute; right: 0; bottom: 4px; font-size: var(--vt-fs-micro); color: var(--vt-chart-axis); }
-.vt-app .vt-spark-cpu { --vt-sc: var(--vt-chart-5); }
-.vt-app .vt-spark-2g { --vt-sc: var(--vt-b2); }
-.vt-app .vt-spark-5g { --vt-sc: var(--vt-b5); }
-.vt-app .vt-spark-6g { --vt-sc: var(--vt-b6); }
-.vt-app .vt-spark-x { --vt-sc: var(--vt-text-3); }
-.vt-app .vt-spark-up { --vt-sc: var(--vt-series-up); }
+.vt-app .vt-spark-cpu { --vt-sc: var(--vt-chart-5); --vt-sc-rgb: var(--vt-chart-5-rgb); }
+.vt-app .vt-spark-2g { --vt-sc: var(--vt-b2); --vt-sc-rgb: var(--vt-b2-rgb); }
+.vt-app .vt-spark-5g { --vt-sc: var(--vt-b5); --vt-sc-rgb: var(--vt-b5-rgb); }
+.vt-app .vt-spark-6g { --vt-sc: var(--vt-b6); --vt-sc-rgb: var(--vt-b6-rgb); }
+.vt-app .vt-spark-x { --vt-sc: var(--vt-text-3); --vt-sc-rgb: var(--vt-text-3-rgb); }
+.vt-app .vt-spark-up { --vt-sc: var(--vt-series-up); --vt-sc-rgb: var(--vt-series-up-rgb); }
 .vt-app .vt-cap { display: block; margin-top: 3px; font-size: var(--vt-fs-micro); line-height: 1.1; color: var(--vt-chart-axis); letter-spacing: .02em; white-space: nowrap; }
 .vt-app .vt-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
@@ -358,7 +401,7 @@ html[data-darkmode="true"] .vt-app {
    column (--c), width in columns (--w) and top (--y), and the grid's
    column count (--cols) and height. Widths and columns follow the grid
    width here, so only heights wait for script. */
-.vt-app .vt-grid { --vt-gap: var(--vt-sp-4); --cols: 1; position: relative; min-height: 200px; }
+.vt-app .vt-grid { --vt-gap: var(--vt-sp-4); --vt-gap-rgb: var(--vt-sp-4-rgb); --cols: 1; position: relative; min-height: 200px; }
 .vt-app .vt-grid-wait { visibility: hidden; }
 .vt-app .vt-grid > .vt-cell, .vt-app .vt-grid > .vt-drop-ghost {
 	--c: 0; --w: 1; --y: 0px; --vt-cw: calc((100% - (var(--cols) - 1) * var(--vt-gap)) / var(--cols));
@@ -375,7 +418,7 @@ html[data-darkmode="true"] .vt-app {
 .vt-app .vt-layout-btn { flex: none; gap: 6px; font-size: var(--vt-fs-sm); }
 .vt-app .vt-layout-btn .vt-ico { width: 16px; height: 16px; }
 .vt-app .vt-layout-btn[aria-pressed="true"] { background: var(--vt-accent-soft); color: var(--vt-text); }
-@container vt (max-width: 699px) { .vt-app .vt-layout-btn span { display: none; } }
+@media (max-width: 699px) { .vt-app .vt-layout-btn span { display: none; } }
 
 .vt-app .vt-editbar {
 	position: sticky; top: calc(var(--v-stick-top, 48px) + 8px); z-index: var(--vt-z-float);
@@ -398,7 +441,7 @@ html[data-darkmode="true"] .vt-app {
 .vt-app .vt-edit-field label { font-size: var(--vt-fs-sm); color: var(--vt-text-2); white-space: nowrap; }
 /* narrow: the two picks side by side, each label above its select, so
    the sticky bar stays short */
-@container vt (max-width: 699px) {
+@media (max-width: 699px) {
 	.vt-app .vt-edit-picks { flex: 1 1 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 	.vt-app .vt-edit-field { flex-direction: column; align-items: stretch; gap: 4px; }
 	.vt-app .vt-edit-field label { white-space: normal; }
@@ -448,7 +491,7 @@ html[data-darkmode="true"] .vt-app {
 	.vt-app .vt-select option:focus { outline: none; }
 	.vt-app .vt-select option::checkmark { display: none; }
 }
-@container vt (max-width: 699px) {
+@media (max-width: 699px) {
 	.vt-app .vt-editbar { padding: 8px 8px 8px 12px; gap: 8px; }
 	.vt-app .vt-editbar-text { flex-basis: 0; }
 	.vt-app .vt-editbar-text .vt-hint { display: none; }
@@ -463,7 +506,7 @@ html[data-darkmode="true"] .vt-app {
 .vt-app.vt-editing .vt-ov {
 	display: block; position: absolute; inset: 0; z-index: var(--vt-z-over);
 	border: 2px dashed var(--vt-accent-line); border-radius: var(--vt-r-lg);
-	background: color-mix(in oklab, var(--vt-surface) 55%, transparent);
+	background: rgba(var(--vt-surface-rgb), .55);
 }
 .vt-app .vt-ov-bar {
 	display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px;
@@ -490,7 +533,7 @@ html[data-darkmode="true"] .vt-app {
    not three; no ‹ ›, drag and the arrow keys on the grip still move it */
 .vt-app .vt-cell { container: vtcell / inline-size; }
 /* tiles with a container of their own keep the vtcell name too (below) */
-@container vtcell (max-width: 340px) { .vt-app .vt-ov-lr { display: none; } }
+@media (max-width: 372px) { .vt-app .vt-ov-lr { display: none; } }
 
 .vt-app.vt-editing .vt-cell { transition: top .2s ease, left .2s ease; }
 .vt-app .vt-cell.vt-dragging { z-index: var(--vt-z-drag); transition: none; opacity: .92; box-shadow: var(--vt-shadow-pop); }
@@ -520,7 +563,7 @@ html[data-darkmode="true"] .vt-app {
 
 /* folding: phones only; wider layouts show everything and ignore the state */
 .vt-app .vt-fold-btn, .vt-app .vt-sec-head, .vt-app .vt-radio-sum { display: none; }
-@container vt (max-width: 699px) {
+@media (max-width: 699px) {
 	.vt-app .vt-fold-btn {
 		display: inline-flex; align-items: center; justify-content: center; flex: none;
 		width: var(--vt-ctl); height: var(--vt-ctl); margin: -4px -8px -4px 0; padding: 0; border: 0; border-radius: var(--vt-r-ctl);
@@ -584,8 +627,8 @@ html[data-darkmode="true"] .vt-app {
 	position: relative; flex: none;
 	width: 38px; height: 38px; border-radius: 50%;
 	display: inline-flex; align-items: center; justify-content: center;
-	--vt-oc: var(--vt-ok);
-	background: color-mix(in oklab, var(--vt-oc) 16%, transparent);
+	--vt-oc: var(--vt-ok); --vt-oc-rgb: var(--vt-ok-rgb);
+	background: rgba(var(--vt-oc-rgb), .16);
 }
 /* the ring always pulses, or it reads as stuck: slowly and softly while
    all is fine, at the full rate when something needs attention */
@@ -599,9 +642,9 @@ html[data-darkmode="true"] .vt-app {
 /* paused, or another window has the focus (overview.js setMotion): the
    ring stands still */
 .vt-app.vt-still .vt-orb::after { animation: none; }
-.vt-app .vt-orb-core { width: 14px; height: 14px; border-radius: 50%; background: var(--vt-oc); box-shadow: 0 0 0 4px color-mix(in oklab, var(--vt-oc) 22%, transparent); }
-.vt-app .vt-orb-warn { --vt-oc: var(--vt-warn); }
-.vt-app .vt-orb-err { --vt-oc: var(--vt-err); }
+.vt-app .vt-orb-core { width: 14px; height: 14px; border-radius: 50%; background: var(--vt-oc); box-shadow: 0 0 0 4px rgba(var(--vt-oc-rgb), .22); }
+.vt-app .vt-orb-warn { --vt-oc: var(--vt-warn); --vt-oc-rgb: var(--vt-warn-rgb); }
+.vt-app .vt-orb-err { --vt-oc: var(--vt-err); --vt-oc-rgb: var(--vt-err-rgb); }
 @keyframes vt-ring { 0% { transform: scale(.7); opacity: .5; } 100% { transform: scale(1.35); opacity: 0; } }
 @keyframes vt-ring-soft { 0% { transform: scale(.85); opacity: .35; } 100% { transform: scale(1.3); opacity: 0; } }
 
@@ -626,12 +669,12 @@ html[data-darkmode="true"] .vt-app {
    unless the animation runs: nothing shows without motion. */
 .vt-app .vt-live-beat::after {
 	content: ""; position: absolute; inset: 0; z-index: -1; border-radius: 50%;
-	background: color-mix(in oklab, var(--vt-beat-c, var(--vt-ok)) 45%, transparent);
+	background: rgba(var(--vt-beat-c-rgb, var(--vt-ok-rgb)), .45);
 	opacity: 0;
 	will-change: transform, opacity;
 }
-.vt-app .vt-live-paused .vt-live-beat { --vt-beat-c: var(--vt-text-3); }
-.vt-app .vt-live-err .vt-live-beat { --vt-beat-c: var(--vt-warn); }
+.vt-app .vt-live-paused .vt-live-beat { --vt-beat-c: var(--vt-text-3); --vt-beat-c-rgb: var(--vt-text-3-rgb); }
+.vt-app .vt-live-err .vt-live-beat { --vt-beat-c: var(--vt-warn); --vt-beat-c-rgb: var(--vt-warn-rgb); }
 .vt-app .vt-live-ok .vt-live-beat::after { animation: vt-beat-soft 5s ease-out infinite; }
 .vt-app .vt-live-err .vt-live-beat::after { animation: vt-beat 2s ease-out infinite; }
 .vt-app.vt-still .vt-live-beat::after { animation: none; }
@@ -647,11 +690,11 @@ html[data-darkmode="true"] .vt-app {
 	display: grid; gap: 10px; margin-bottom: var(--vt-sp-4);
 	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
-@container vt (min-width: 700px) { .vt-app .vt-health { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@container vt (min-width: 1100px) { .vt-app .vt-health { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+@media (min-width: 700px) { .vt-app .vt-health { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .vt-app .vt-health { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
 /* wired-only: four checks */
-@container vt (min-width: 700px) { .vt-app.vt-wired .vt-health { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@container vt (min-width: 1100px) { .vt-app.vt-wired .vt-health { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (min-width: 700px) { .vt-app.vt-wired .vt-health { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .vt-app.vt-wired .vt-health { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 .vt-app .vt-chip {
 	display: flex; align-items: flex-start; gap: 10px; min-width: 0;
 	padding: 11px 12px; border-radius: var(--vt-r);
@@ -659,12 +702,12 @@ html[data-darkmode="true"] .vt-app {
 	color: var(--vt-text); text-decoration: none; text-align: left; cursor: pointer;
 	box-shadow: var(--vt-shadow);
 	transition: border-color .15s, transform .15s, background .15s;
-	--vt-cc: var(--vt-ok);
+	--vt-cc: var(--vt-ok); --vt-cc-rgb: var(--vt-ok-rgb);
 }
-.vt-app .vt-chip:hover { text-decoration: none; border-color: color-mix(in oklab, var(--vt-cc) 55%, var(--vt-line)); transform: translateY(-1px); }
-.vt-app .vt-chip-warn { --vt-cc: var(--vt-warn); background: color-mix(in oklab, var(--vt-warn) 7%, var(--vt-surface)); border-color: color-mix(in oklab, var(--vt-warn) 35%, var(--vt-line)); }
-.vt-app .vt-chip-err { --vt-cc: var(--vt-err); background: color-mix(in oklab, var(--vt-err) 7%, var(--vt-surface)); border-color: color-mix(in oklab, var(--vt-err) 35%, var(--vt-line)); }
-.vt-app .vt-chip-info { --vt-cc: var(--vt-text-3); }
+.vt-app .vt-chip:hover { text-decoration: none; border-color: rgba(var(--vt-cc-rgb), .55); transform: translateY(-1px); }
+.vt-app .vt-chip-warn { --vt-cc: var(--vt-warn); --vt-cc-rgb: var(--vt-warn-rgb); background: rgba(var(--vt-warn-rgb), .07); border-color: rgba(var(--vt-warn-rgb), .35); }
+.vt-app .vt-chip-err { --vt-cc: var(--vt-err); --vt-cc-rgb: var(--vt-err-rgb); background: rgba(var(--vt-err-rgb), .07); border-color: rgba(var(--vt-err-rgb), .35); }
+.vt-app .vt-chip-info { --vt-cc: var(--vt-text-3); --vt-cc-rgb: var(--vt-text-3-rgb); }
 /* the check's own icon, in the card's top right corner so the text
    runs from its left edge: plain while all is well, in the level's
    colour when it needs attention */
@@ -677,7 +720,7 @@ html[data-darkmode="true"] .vt-app {
    and keep their icon before the title) */
 .vt-app .vt-health .vt-chip-ico { position: absolute; top: 10px; right: 10px; }
 .vt-app .vt-health .vt-chip-top { padding-right: 30px; }
-.vt-app :is(.vt-chip-warn, .vt-chip-err) .vt-chip-ico { background: color-mix(in oklab, var(--vt-cc) 15%, transparent); color: var(--vt-cc); }
+.vt-app :is(.vt-chip-warn, .vt-chip-err) .vt-chip-ico { background: rgba(var(--vt-cc-rgb), .15); color: var(--vt-cc); }
 .vt-app .vt-chip-ico .vt-ico { width: 16px; height: 16px; stroke-width: 1.7; }
 .vt-app .vt-health .vt-chip { align-self: stretch; position: relative; overflow: hidden; }
 .vt-app .vt-chip-main { display: flex; flex-direction: column; min-width: 0; flex: 1; align-self: stretch; }
@@ -700,12 +743,12 @@ html[data-darkmode="true"] .vt-app {
 .vt-app .vt-chip-bar, .vt-app .vt-bar.vt-chip-bar { display: block; height: 3px; border-radius: 0; }
 .vt-app .vt-chip-k-radios .vt-chip-bar.vt-bar { height: 4px; border-radius: var(--vt-r-xs); }
 .vt-app .vt-chip-k-radios .vt-chip-bar .vt-bar-fill { border-radius: var(--vt-r-xs); }
-.vt-app :is(.vt-chip-k-memory, .vt-chip-k-storage) .vt-chip-bar { background: color-mix(in oklab, var(--vt-line) 70%, transparent); }
+.vt-app :is(.vt-chip-k-memory, .vt-chip-k-storage) .vt-chip-bar { background: rgba(var(--vt-line-rgb), .7); }
 .vt-app :is(.vt-chip-k-memory, .vt-chip-k-storage) .vt-chip-bar .vt-bar-fill { border-radius: 0; }
 .vt-app .vt-chip-mem { display: flex; gap: 1px; overflow: hidden; }
 .vt-app .vt-chip-mem > span { display: block; height: 100%; }
 .vt-app .vt-chip-mem-used { background: var(--vt-meter); }
-.vt-app .vt-chip-mem-cache { background: color-mix(in oklab, var(--vt-meter) 35%, var(--vt-surface-3)); }
+.vt-app .vt-chip-mem-cache { background: rgba(var(--vt-meter-rgb), .35); }
 .vt-app .vt-chip-mem-warn .vt-chip-mem-used { background: var(--vt-warn); }
 .vt-app .vt-chip-mem-err .vt-chip-mem-used { background: var(--vt-err); }
 /* two to a row: up to two radios stay one line, four make two */
@@ -719,7 +762,7 @@ html[data-darkmode="true"] .vt-app {
 .vt-app .vt-chip-dist { display: flex; gap: 2px; height: 3px; }
 .vt-app .vt-chip-dist > span { flex: 0 1 auto; min-width: 4px; }
 .vt-app .vt-dist-4 { background: var(--vt-ok); }
-.vt-app .vt-dist-3 { background: color-mix(in oklab, var(--vt-ok) 55%, var(--vt-surface-3)); }
+.vt-app .vt-dist-3 { background: rgba(var(--vt-ok-rgb), .55); }
 .vt-app .vt-dist-2 { background: var(--vt-warn); }
 .vt-app .vt-dist-1 { background: var(--vt-err); }
 .vt-app .vt-chip-top { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; }
@@ -737,6 +780,11 @@ html[data-darkmode="true"] .vt-app {
 .vt-app .vt-chip-reason .vt-part { display: inline-block; }
 .vt-app .vt-chip-reason .vt-part::before { content: "·"; display: inline-block; width: .9em; text-align: center; }
 
+/* iOS 15.5 (Safari 15.5) has no container queries: these max-width
+   arrangements are asked of the viewport instead, 32 px wider than the
+   tile they were written for (the page gutter), so a phone still gets
+   them. The min-width ones stay: an old engine drops them and keeps the
+   wide layout they would refine */
 /* -------------------------------------------------- 5. hero: network path */
 
 .vt-app .vt-hero { container: vthero vtcell / inline-size; overflow: hidden; display: flex; flex-direction: column; }
@@ -744,7 +792,7 @@ html[data-darkmode="true"] .vt-app {
 .vt-app .vt-hero::before {
 	content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
 	background:
-		radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--vt-text-3) 22%, transparent) 1px, transparent 1.4px) 0 0 / 18px 18px;
+		radial-gradient(circle at 1px 1px, rgba(var(--vt-text-3-rgb), .22) 1px, transparent 1.4px) 0 0 / 18px 18px;
 	-webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,.55), transparent 85%);
 	mask-image: linear-gradient(180deg, rgba(0,0,0,.55), transparent 85%);
 }
@@ -764,7 +812,7 @@ html[data-darkmode="true"] .vt-app {
 .vt-app .vt-wires { position: absolute; left: 0; top: 0; z-index: 0; pointer-events: none; overflow: visible; }
 .vt-app .vt-wire { fill: none; stroke: var(--vt-line-2); stroke-width: 1.5; transition: stroke .4s; }
 .vt-app .vt-wire-main { stroke-width: 2.5; }
-.vt-app .vt-wire-on { stroke: color-mix(in oklab, var(--vt-accent-line) 40%, var(--vt-line-2)); }
+.vt-app .vt-wire-on { stroke: var(--vt-accent-line-40); }
 /* traffic on a wire: dots about 16 px apart moving along it (1.6, 1.05
    or 0.6 s per 32 px by load), each a small element the view animates with
    transform, so the compositor moves them without repainting the wires.
@@ -793,7 +841,7 @@ html[data-darkmode="true"] .vt-app {
 	text-align: left; cursor: pointer; height: auto; line-height: 1.3; text-transform: none; font-weight: var(--vt-fw-regular);
 	transition: border-color .15s, transform .15s, box-shadow .15s;
 }
-.vt-app .vt-node:hover { border-color: color-mix(in oklab, var(--vt-accent-line) 60%, var(--vt-line)); transform: translateY(-1px); box-shadow: var(--vt-shadow-raise); background: var(--vt-surface); }
+.vt-app .vt-node:hover { border-color: var(--vt-accent-line-60); transform: translateY(-1px); box-shadow: var(--vt-shadow-raise); background: var(--vt-surface); }
 .vt-app .vt-node-body { display: flex; flex-direction: column; min-width: 0; gap: 1px; }
 .vt-app .vt-node-kicker { display: flex; align-items: center; gap: 6px; font-size: var(--vt-fs-micro); font-weight: var(--vt-fw-semibold); color: var(--vt-text-3); text-transform: uppercase; letter-spacing: .08em; white-space: nowrap; }
 .vt-app .vt-node-title { font-size: var(--vt-fs-base); font-weight: var(--vt-fw-semibold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -807,7 +855,7 @@ html[data-darkmode="true"] .vt-app {
 }
 .vt-app .vt-node-ico .vt-ico { width: 20px; height: 20px; }
 .vt-app .vt-node-gw { justify-self: stretch; align-self: center; }
-.vt-app .vt-node-ap { justify-self: stretch; align-self: center; padding: 12px; border-color: color-mix(in oklab, var(--vt-accent-line) 40%, var(--vt-line)); }
+.vt-app .vt-node-ap { justify-self: stretch; align-self: center; padding: 12px; border-color: var(--vt-accent-line-40); }
 .vt-app .vt-node-ap .vt-node-ico { background: var(--vt-accent-fill); color: var(--vt-accent-fill-ink); }
 .vt-app .vt-node-ap .vt-node-title { font-size: var(--vt-fs-md); }
 /* plain text, unlike a radio's: a wider font or language stays inside */
@@ -842,7 +890,7 @@ html[data-darkmode="true"] .vt-app {
 .vt-app .vt-path-mesh .vt-leaf-ip { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--vt-text-3); }
 .vt-app .vt-path-mesh .vt-leaf-more { grid-column: 1 / -1; font-size: var(--vt-fs-sm); color: var(--vt-text-3); cursor: pointer; }
 .vt-app .vt-path-mesh .vt-leaf-more:hover { color: var(--vt-text-2); text-decoration: underline; }
-.vt-app .vt-path-mesh .vt-node-peer { padding: 10px 12px; border-color: color-mix(in oklab, var(--vt-accent-line) 40%, var(--vt-line)); }
+.vt-app .vt-path-mesh .vt-node-peer { padding: 10px 12px; border-color: var(--vt-accent-line-40); }
 .vt-app .vt-path-mesh .vt-node-peer .vt-node-ico { background: var(--vt-accent-fill); color: var(--vt-accent-fill-ink); }
 .vt-app .vt-path-mesh .vt-node-peer .vt-node-title { font-size: var(--vt-fs-md); }
 .vt-app .vt-path-mesh .vt-node-peer .vt-node-kicker { display: block; overflow: hidden; text-overflow: ellipsis; }
@@ -884,11 +932,11 @@ html[data-darkmode="true"] .vt-app {
 	padding: 0 6px; border-radius: 6px; background: var(--vt-surface); }
 /* a full-tunnel VPN over the main line: its wire drawn as a pipe in its
    own colour around the traffic, the tunnel named under the line's rates */
-.vt-app .vt-wire-tunnel { stroke-width: 9; stroke-linecap: round; stroke: color-mix(in oklab, var(--vt-tunnel) 24%, transparent); }
-.vt-app .vt-wire-tunnel.vt-wire-on { stroke: color-mix(in oklab, var(--vt-tunnel) 36%, transparent); }
+.vt-app .vt-wire-tunnel { stroke-width: 9; stroke-linecap: round; stroke: rgba(var(--vt-tunnel-rgb), .24); }
+.vt-app .vt-wire-tunnel.vt-wire-on { stroke: rgba(var(--vt-tunnel-rgb), .36); }
 .vt-app .vt-link-tunnel {
 	display: inline-flex; align-items: center; gap: 4px; max-width: 100%; min-width: 0; margin-top: 4px; padding: 1px 6px;
-	border: 1px solid color-mix(in oklab, var(--vt-tunnel) 60%, var(--vt-line)); border-radius: 6px;
+	border: 1px solid rgba(var(--vt-tunnel-rgb), .6); border-radius: 6px;
 	background: var(--vt-surface); color: var(--vt-text-2); font-size: var(--vt-fs-micro); white-space: nowrap;
 }
 .vt-app .vt-link-tunnel[hidden] { display: none; }
@@ -932,7 +980,7 @@ html[data-darkmode="true"] .vt-app {
 .vt-app .vt-path-mesh .vt-branch-ssids .vt-node { width: 100%; max-width: 340px; container: vtleaf / inline-size; }
 /* a narrow node (a phone, medium widths): the address goes and the other
    columns take what their text needs, so the name keeps its room */
-@container vtleaf (max-width: 27em) {
+@media (max-width: 464px) {
 	.vt-app .vt-path-mesh .vt-leaf-rows { grid-template-columns: minmax(0, 1fr) auto auto auto; }
 	.vt-app .vt-path-mesh .vt-leaf-ip { display: none; }
 }
@@ -977,14 +1025,14 @@ html[data-darkmode="true"] .vt-app {
 /* medium widths: the rates need their column, and the branches have room
    to give; what a radio or the Wired node leads to goes under it, too
    narrow beside it */
-@container vthero (max-width: 1020px) {
+@media (max-width: 1052px) {
 	.vt-app .vt-path { grid-template-columns: minmax(150px, 1.05fr) minmax(136px, .9fr) minmax(190px, 1.1fr) minmax(204px, 2fr); }
 	.vt-app .vt-branches { display: flex; }
 	.vt-app .vt-branch { grid-template-columns: minmax(0, 1fr); row-gap: 8px; }
 	.vt-app .vt-branch > .vt-node { justify-self: start; min-width: min(200px, 100%); }
 	.vt-app .vt-branch-ssids { padding-left: 34px; }
 }
-@container vthero (max-width: 700px) {
+@media (max-width: 732px) {
 	.vt-app .vt-path { grid-template-columns: minmax(0, 1fr); gap: 12px; min-height: 0; }
 	.vt-app .vt-node-gw, .vt-app .vt-node-ap { justify-self: start; min-width: 220px; }
 	.vt-app .vt-link-label { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; justify-content: flex-start; padding: 0 0 0 44px; }
@@ -1059,10 +1107,10 @@ html[data-darkmode="true"] .vt-app {
    below the wide layout): the rate down only (both are in the line's
    label and tooltip); less than 400 px, in the client rows' short form
    (62.2k) */
-@container vthero (max-width: 533px) {
+@media (max-width: 565px) {
 	.vt-app .vt-path.vt-path-compact .vt-cl-up { display: none; }
 }
-@container vthero (max-width: 433px) {
+@media (max-width: 465px) {
 	/* and less room around a name: what is set in goes 26 px in (the
 	   wire's corner still meets the line's edge), tighter padding */
 	.vt-app .vt-path.vt-path-compact .vt-branches { --vt-nest: 26px; }
@@ -1078,7 +1126,7 @@ html[data-darkmode="true"] .vt-app {
 /* below the wide layout the tree takes the tile's width, under this
    device as on a phone: beside it a column of 270 px left a few letters
    of each name */
-@container vthero (max-width: 1020px) {
+@media (max-width: 1052px) {
 	.vt-app .vt-path.vt-path-compact { grid-template-columns: minmax(0, 1fr); gap: 12px; min-height: 0; }
 	.vt-app .vt-path.vt-path-compact > .vt-node-gw, .vt-app .vt-path.vt-path-compact > .vt-node-ap { justify-self: start; min-width: 220px; }
 	.vt-app .vt-path.vt-path-compact > .vt-link-label { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; justify-content: flex-start; padding: 0 0 0 44px; }
@@ -1100,7 +1148,7 @@ html[data-darkmode="true"] .vt-app {
 .vt-app .vt-sys-cpu-l { display: flex; flex-direction: column; gap: 3px; }
 /* a narrow System column puts the sparkline under the load figures */
 /* narrow: the sparkline under the numbers, so the load figures never meet its label */
-@container vtsys (max-width: 420px) { .vt-app .vt-sys-cpu { grid-template-columns: minmax(0, 1fr); gap: 4px; } }
+@media (max-width: 452px) { .vt-app .vt-sys-cpu { grid-template-columns: minmax(0, 1fr); gap: 4px; } }
 .vt-app .vt-sys-cpu-r { display: flex; align-items: flex-end; gap: 10px; min-width: 0; }
 .vt-app .vt-spark-box { flex: 1; min-width: 0; padding-top: 12px; }
 .vt-app .vt-spark-box .vt-spark { height: 38px; }
@@ -1126,7 +1174,7 @@ html[data-darkmode="true"] .vt-app {
 .vt-app .vt-seg-used { background: var(--vt-meter); }
 .vt-app .vt-seg-cache {
 	background:
-		repeating-linear-gradient(-45deg, color-mix(in srgb, var(--vt-meter) 55%, transparent) 0 3px, color-mix(in srgb, var(--vt-meter) 25%, transparent) 3px 6px);
+		repeating-linear-gradient(-45deg, rgba(var(--vt-meter-rgb), .55) 0 3px, rgba(var(--vt-meter-rgb), .25) 3px 6px);
 }
 .vt-app .vt-seg-free { background: transparent; }
 .vt-app .vt-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: var(--vt-fs-sm); color: var(--vt-text-2); }
@@ -1161,11 +1209,11 @@ html[data-darkmode="true"] .vt-app {
 .vt-app .vt-chart-sub::before { content: "·"; margin: 0 6px 0 0; }
 .vt-app .vt-lg-key { width: 12px; height: 3px; border-radius: var(--vt-r-xs); background: var(--vt-sc); flex: none; }
 /* one colour per direction in every row (series, gradients, dots, keys) */
-.vt-app .vt-chart, .vt-app .vt-chart .vt-k-dn { --vt-sc: var(--vt-dir-dn); }
-.vt-app .vt-chart .vt-dir-up, .vt-app .vt-chart .vt-k-up { --vt-sc: var(--vt-dir-up); }
+.vt-app .vt-chart, .vt-app .vt-chart .vt-k-dn { --vt-sc: var(--vt-dir-dn); --vt-sc-rgb: var(--vt-dir-dn-rgb); }
+.vt-app .vt-chart .vt-dir-up, .vt-app .vt-chart .vt-k-up { --vt-sc: var(--vt-dir-up); --vt-sc-rgb: var(--vt-dir-up-rgb); }
 .vt-app .vt-arr { font-weight: var(--vt-fw-bold); }
-.vt-app .vt-arr-dn { color: color-mix(in oklab, var(--vt-dir-dn) 70%, var(--vt-text)); }
-.vt-app .vt-arr-up { color: color-mix(in oklab, var(--vt-dir-up) 70%, var(--vt-text)); }
+.vt-app .vt-arr-dn { color: rgba(var(--vt-dir-dn-rgb), .7); }
+.vt-app .vt-arr-up { color: rgba(var(--vt-dir-up-rgb), .7); }
 .vt-app .vt-dir-legend { font-size: var(--vt-fs-micro); gap: 4px 12px; }
 
 .vt-app .vt-mult-wrap { position: relative; flex: 1; display: flex; flex-direction: column; min-height: 300px; border-radius: var(--vt-r-sm); outline-offset: 4px; }
@@ -1188,7 +1236,7 @@ html[data-darkmode="true"] .vt-app {
 .vt-app .vt-chart-vgrid { fill: none; stroke: var(--vt-chart-grid); stroke-width: 1; stroke-dasharray: 2 4; vector-effect: non-scaling-stroke; }
 .vt-app .vt-series-line { fill: none; stroke: var(--vt-sc); stroke-width: 1.75; vector-effect: non-scaling-stroke; stroke-linejoin: round; stroke-linecap: round; }
 .vt-app .vt-series-area { stroke: none; }
-.vt-app .vt-chart-mid { fill: none; stroke: color-mix(in oklab, var(--vt-chart-axis) 55%, transparent); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.vt-app .vt-chart-mid { fill: none; stroke: rgba(var(--vt-chart-axis-rgb), .55); stroke-width: 1; vector-effect: non-scaling-stroke; }
 /* scale labels sit just above their line (top set per style), or just
    below it */
 .vt-app .vt-mult-max {
@@ -1206,7 +1254,7 @@ html[data-darkmode="true"] .vt-app {
 .vt-app .vt-mult-gap span { padding: 2px 4px; border-radius: var(--vt-r-xs); background: var(--vt-surface); }
 /* a band too narrow for its label shows the hatching alone */
 .vt-app .vt-mult-gap { container-type: inline-size; }
-@container (max-width: 60px) { .vt-app .vt-mult-gap span { display: none; } }
+@media (max-width: 92px) { .vt-app .vt-mult-gap span { display: none; } }
 .vt-app .vt-mult-dot {
 	position: absolute; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; border-radius: 50%; z-index: 2;
 	background: var(--vt-sc); box-shadow: 0 0 0 2px var(--vt-surface); pointer-events: none;
@@ -1217,7 +1265,7 @@ html[data-darkmode="true"] .vt-app {
 .vt-app .vt-mx-0 { left: 0; transform: none; }
 .vt-app .vt-mx-1 { right: 0; transform: none; }
 .vt-app .vt-mult-wrap { cursor: crosshair; touch-action: pan-y; }
-.vt-app .vt-cursor { position: absolute; top: 0; bottom: 0; width: 0; border-left: 1px solid color-mix(in oklab, var(--vt-text) 45%, transparent); pointer-events: none; }
+.vt-app .vt-cursor { position: absolute; top: 0; bottom: 0; width: 0; border-left: 1px solid rgba(var(--vt-text-rgb), .45); pointer-events: none; }
 .vt-app .vt-tip {
 	position: absolute; top: 4px; z-index: var(--vt-z-over);
 	width: max-content; min-width: 180px; padding: 8px 10px; border-radius: var(--vt-r);
@@ -1235,10 +1283,10 @@ html[data-darkmode="true"] .vt-app {
 
 .vt-app .vt-radios { display: flex; flex-direction: column; min-width: 0; }
 .vt-app .vt-radio-list { flex: 1; display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); min-width: 0; }
-.vt-app .vt-radio { display: flex; flex-direction: column; gap: 12px; --vt-bc: var(--vt-b60); overflow: hidden; }
-.vt-app .vt-radio-2g { --vt-bc: var(--vt-b2); }
-.vt-app .vt-radio-5g { --vt-bc: var(--vt-b5); }
-.vt-app .vt-radio-6g { --vt-bc: var(--vt-b6); }
+.vt-app .vt-radio { display: flex; flex-direction: column; gap: 12px; --vt-bc: var(--vt-b60); --vt-bc-rgb: var(--vt-b60-rgb); overflow: hidden; }
+.vt-app .vt-radio-2g { --vt-bc: var(--vt-b2); --vt-bc-rgb: var(--vt-b2-rgb); }
+.vt-app .vt-radio-5g { --vt-bc: var(--vt-b5); --vt-bc-rgb: var(--vt-b5-rgb); }
+.vt-app .vt-radio-6g { --vt-bc: var(--vt-b6); --vt-bc-rgb: var(--vt-b6-rgb); }
 .vt-app .vt-radio::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--vt-bc); opacity: .85; }
 .vt-app .vt-radio-off { opacity: .75; }
 .vt-app .vt-radio-head { display: flex; align-items: center; gap: 8px; }
@@ -1450,10 +1498,10 @@ html[data-darkmode="true"] .vt-app {
 .vt-app .vt-score {
 	flex: none; display: inline-flex; align-items: center; justify-content: center;
 	width: 32px; height: 26px; border-radius: 8px; font-size: var(--vt-fs-sm); font-weight: var(--vt-fw-bold);
-	--vt-xc: var(--vt-ok); --vt-xt: var(--vt-ok-text); background: color-mix(in oklab, var(--vt-xc) 15%, transparent); color: var(--vt-xt);
+	--vt-xc: var(--vt-ok); --vt-xc-rgb: var(--vt-ok-rgb); --vt-xt: var(--vt-ok-text); --vt-xt-rgb: var(--vt-ok-text-rgb); background: rgba(var(--vt-xc-rgb), .15); color: var(--vt-xt);
 }
-.vt-app .vt-score-warn { --vt-xc: var(--vt-warn); --vt-xt: var(--vt-warn-text); }
-.vt-app .vt-score-err { --vt-xc: var(--vt-err); --vt-xt: var(--vt-err-text); }
+.vt-app .vt-score-warn { --vt-xc: var(--vt-warn); --vt-xc-rgb: var(--vt-warn-rgb); --vt-xt: var(--vt-warn-text); --vt-xt-rgb: var(--vt-warn-text-rgb); }
+.vt-app .vt-score-err { --vt-xc: var(--vt-err); --vt-xc-rgb: var(--vt-err-rgb); --vt-xt: var(--vt-err-text); --vt-xt-rgb: var(--vt-err-text-rgb); }
 .vt-app .vt-exp-text { display: flex; flex-direction: column; min-width: 0; }
 .vt-app .vt-exp-text b { font-size: var(--vt-fs-sm); font-weight: var(--vt-fw-semibold); }
 .vt-app .vt-exp-text span {
@@ -1542,7 +1590,7 @@ html[data-darkmode="true"] .vt-app {
 	text-align: left; height: auto; line-height: 1.3; text-transform: none; font-weight: var(--vt-fw-regular);
 }
 .vt-app button.vt-port { cursor: pointer; transition: border-color .15s; }
-.vt-app button.vt-port:hover { border-color: color-mix(in oklab, var(--vt-accent-line) 60%, var(--vt-line)); background: var(--vt-surface); }
+.vt-app button.vt-port:hover { border-color: var(--vt-accent-line-60); background: var(--vt-surface); }
 .vt-app .vt-port-off, .vt-app button.vt-port-off:hover { background: transparent; border-style: dashed; }
 /* as tall as the uplink's mark, so the names line up along a row */
 .vt-app .vt-port-top { display: flex; align-items: center; gap: 6px; min-width: 0; min-height: 18px; }
@@ -1575,7 +1623,7 @@ html[data-darkmode="true"] .vt-app {
 .vt-app .vt-ext-val { font-size: var(--vt-fs-lg); font-weight: var(--vt-fw-semibold); line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .vt-app .vt-ext-bar { margin-top: 2px; }
 .vt-app .vt-ext-item .vt-spark { height: 22px; }
-.vt-app .vt-spark-ext { --vt-sc: var(--vt-chart-1); }
+.vt-app .vt-spark-ext { --vt-sc: var(--vt-chart-1); --vt-sc-rgb: var(--vt-chart-1-rgb); }
 
 /* ------------------------------------------------------------ 11. drawer */
 
@@ -1624,15 +1672,15 @@ html[data-darkmode="true"] .vt-app {
 
 .vt-app .vt-expcard {
 	display: flex; gap: 14px; align-items: center; padding: 14px; border-radius: var(--vt-r);
-	--vt-xc: var(--vt-ok);
-	background: color-mix(in oklab, var(--vt-xc) 8%, var(--vt-surface));
-	border: 1px solid color-mix(in oklab, var(--vt-xc) 25%, var(--vt-line));
+	--vt-xc: var(--vt-ok); --vt-xc-rgb: var(--vt-ok-rgb);
+	background: rgba(var(--vt-xc-rgb), .08);
+	border: 1px solid rgba(var(--vt-xc-rgb), .25);
 }
-.vt-app .vt-expcard-warn { --vt-xc: var(--vt-warn); }
-.vt-app .vt-expcard-err { --vt-xc: var(--vt-err); }
+.vt-app .vt-expcard-warn { --vt-xc: var(--vt-warn); --vt-xc-rgb: var(--vt-warn-rgb); }
+.vt-app .vt-expcard-err { --vt-xc: var(--vt-err); --vt-xc-rgb: var(--vt-err-rgb); }
 .vt-app .vt-ring { position: relative; width: 58px; height: 58px; flex: none; }
 .vt-app .vt-ring-svg { width: 58px; height: 58px; transform: rotate(-90deg); }
-.vt-app .vt-ring-track { fill: none; stroke: color-mix(in oklab, var(--vt-xc) 18%, transparent); stroke-width: 3.5; }
+.vt-app .vt-ring-track { fill: none; stroke: rgba(var(--vt-xc-rgb), .18); stroke-width: 3.5; }
 .vt-app .vt-ring-arc { fill: none; stroke: var(--vt-xc); stroke-width: 3.5; stroke-linecap: round; }
 .vt-app .vt-ring-n { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: var(--vt-fs-lg); font-weight: var(--vt-fw-bold); }
 .vt-app .vt-expcard-grade { font-weight: var(--vt-fw-bold); font-size: var(--vt-fs-md); }
@@ -1699,7 +1747,7 @@ html[data-darkmode="true"] .vt-app {
 /* view/vantage/firewall.js: warnings, then tiles for what is open from
    the internet, the zones and what is switched off */
 /* no internet-facing zone: the page cannot tell, neither green nor a warning */
-.vt-app .vt-orb-unknown { --vt-oc: var(--vt-text-3); }
+.vt-app .vt-orb-unknown { --vt-oc: var(--vt-text-3); --vt-oc-rgb: var(--vt-text-3-rgb); }
 .vt-app .vt-fg-warns { display: grid; gap: 10px; margin-bottom: var(--vt-sp-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
 /* a warning's title is a sentence, not the dashboard's small caps label */
 .vt-app .vt-fg-warns .vt-chip-title { text-transform: none; letter-spacing: 0; font-size: var(--vt-fs-base); font-weight: var(--vt-fw-semibold); color: var(--vt-text); }
@@ -1762,7 +1810,7 @@ html[data-darkmode="true"] .vt-app {
 
 /* ------------------------------------------------ 12. small screens, motion */
 
-@container vt (max-width: 699px) {
+@media (max-width: 699px) {
 	.vt-app .vt-tile { padding: 14px 14px 16px; }
 	.vt-app .vt-filter { max-width: none; flex-basis: 100%; }
 	.vt-app .vt-key-hint { display: none; }
@@ -1797,7 +1845,7 @@ html[data-darkmode="true"] .vt-app {
 /* clients as cards when the tile is too narrow for the table: one
    column on phones, a two-up grid on tablets */
 .vt-app .vt-clients { container: vtcl vtcell / inline-size; }
-@container vtcl (max-width: 919px) {
+@media (max-width: 951px) {
 	.vt-app .vt-table-wrap { margin: 0; padding: 0; overflow: visible; }
 	.vt-app .vt-ctable { min-width: 0; }
 	.vt-app .vt-ctable thead { display: none; }
@@ -1872,3 +1920,10 @@ html[data-darkmode="true"] .vt-app {
 .vt-app.vt-low .vt-flow-on { opacity: .8; }
 .vt-app.vt-low .vt-flow-3.vt-flow-on { stroke-width: 3; }
 .vt-app.vt-low .vt-flows { display: none; }
+
+/* iOS 15.5: the spark areas are filled with a gradient whose stops are
+   coloured through custom properties; old WebKit paints such a gradient
+   black. There, fill the area with the series colour instead. */
+@supports not (color: color-mix(in srgb, #000 50%, #fff)) {
+	.vt-app .vt-spark-area { fill: var(--vt-sc); fill-opacity: var(--vt-fill-op, .22); }
+}

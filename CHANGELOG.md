@@ -7,7 +7,7 @@ packages are listed at
 <https://github.com/anothaDev/luci-theme-vantage/releases> and in the
 [signed repositories](https://anothadev.github.io/luci-theme-vantage/).
 
-## 1.2.2 - unreleased
+## 1.3.0 - 2026-11-26
 
 - **Paired access points: their own addresses leave the wired list on a
   wire that carries several VLANs** (#167,
@@ -20,7 +20,7 @@ packages are listed at
   "behind" another access point, and a host plugged in elsewhere could
   carry that note too. An access point now leaves out the other VLANs of
   its uplink's device, and its own address stands when another access
-  point lists it as a wired host. Needs 1.2.2 on the access points as
+  point lists it as a wired host. Needs 1.3.0 on the access points as
   well. On an access point with an older built-in switch (swconfig),
   whose ports all arrive through one device, a host plugged into it
   cannot be told from the rest of its VLAN: it stays in the router's
@@ -30,6 +30,33 @@ packages are listed at
   Its row now has a "Mesh peer" tag, it no longer counts among the
   device's or the radio's clients, and the mesh's node in the network
   path counts peers.
+
+- **iOS 15.5 (Safari 15.5) and every Safari before 16.2** now get the
+  theme and the dashboard as designed, instead of a black screen with no
+  navigation. Four separate blockers, all of them engine features the
+  rendered page depends on but that only newer WebKit has:
+  - The rail's list, the search, the appearance dialog and the theme
+    switch are filled by `menu-vantage.js`, which would not load at all:
+    a regular expression used a look-behind (`(?<![A-Za-z])`), and an old
+    engine refuses to compile the whole file over it. The unit test
+    (`technical()`) now captures the separator instead of looking behind.
+  - The dashboard's sheet was handed to the page with a constructable
+    stylesheet (`new CSSStyleSheet()` with `adoptedStyleSheets`, 16.4).
+    An older engine has neither, and the guard silently left the view
+    with no sheet: empty tokens, icons without `fill` (black), icons
+    without a size (348 px). The theme now prints two empty `<style>`
+    elements in its header and the views fill those instead, so the same
+    css text arrives as a plain sheet.
+  - The theme's css keeps its `color-mix()`, ranges in media queries,
+    subgrid and `dvh`, each with a declaration an old engine understands
+    written before it: `rgba()` from channel variables the palettes
+    define, `min-width`/`max-width`, explicit column templates. Inside
+    custom properties (where a fallback cannot work) the colour is
+    replaced outright.
+  - Arrangements written in container queries (Safari 16) never applied
+    on a phone, so the network path kept its four desktop columns in a
+    318 px tile and was cut off. The max-width ones are asked of the
+    viewport instead, 32 px wider than the tile, and the path stacks.
 
 ## 1.2.1 - 2026-11-25
 
